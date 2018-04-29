@@ -26,6 +26,23 @@ class ViewController: UIViewController {
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         view.addGestureRecognizer(tap)
+        
+        testScrollView()
+    }
+    
+    private func testScrollView() {
+        let scrollView = UIScrollView(frame: view.frame)
+        scrollView.backgroundColor = .blue
+//        scrollView.contentSize = CGSize(width: 200, height: 200)
+        scrollView.center = view.center
+        
+        let redView = UIView(frame: CGRect(x: scrollView.center.x, y: 50, width: 200, height: 200))
+        redView.backgroundColor = .red
+        let cyanView = UIView(frame: CGRect(x: scrollView.center.x, y: 300, width: 200, height: 200))
+        cyanView.backgroundColor = .cyan
+        scrollView.addSubview(redView)
+        scrollView.addSubview(cyanView)
+        view.addSubview(scrollView)
     }
     
     @objc func handleTap() {
