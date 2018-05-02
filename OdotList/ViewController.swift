@@ -13,8 +13,9 @@ class ViewController: UIViewController {
     var first = true
     
     let colors = [[UIColor(hexString: "F4736A").cgColor, UIColor(hexString: "F8A05A").cgColor],
-                  [UIColor(hexString: "79D0E2").cgColor, UIColor(hexString: "7494DD").cgColor]]
+                  [UIColor(hexString: "7494DD").cgColor, UIColor(hexString: "79D0E2").cgColor]]
     
+    let cellId = "cellId"
     let gradientLayer = GradientLayer()
     
     override func viewDidLoad() {
@@ -27,22 +28,25 @@ class ViewController: UIViewController {
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         view.addGestureRecognizer(tap)
         
-        testScrollView()
+        setupCatagoryCollectionView()
     }
     
-    private func testScrollView() {
-        let scrollView = UIScrollView(frame: view.frame)
-        scrollView.backgroundColor = .blue
-//        scrollView.contentSize = CGSize(width: 200, height: 200)
-        scrollView.center = view.center
+    fileprivate func setupCatagoryCollectionView() {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 15
+        let catagoryCollectionView = UICollectionView(frame: view.frame, collectionViewLayout: layout)
+        catagoryCollectionView.backgroundColor = .clear
+        catagoryCollectionView.showsVerticalScrollIndicator = false
+        catagoryCollectionView.showsHorizontalScrollIndicator = false
+        let collectionViewHeight = (view.frame.height / 2)
+        print("collectionViewHeight: \(collectionViewHeight)")
+        catagoryCollectionView.dataSource = self
+        catagoryCollectionView.delegate = self
+        catagoryCollectionView.register(CatagoryCell.self, forCellWithReuseIdentifier: cellId)
         
-        let redView = UIView(frame: CGRect(x: scrollView.center.x, y: 50, width: 200, height: 200))
-        redView.backgroundColor = .red
-        let cyanView = UIView(frame: CGRect(x: scrollView.center.x, y: 300, width: 200, height: 200))
-        cyanView.backgroundColor = .cyan
-        scrollView.addSubview(redView)
-        scrollView.addSubview(cyanView)
-        view.addSubview(scrollView)
+        view.addSubview(catagoryCollectionView)
+        catagoryCollectionView.anchor(nil, left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 10, rightConstant: 0, widthConstant: 0, heightConstant: collectionViewHeight + 30)
     }
     
     @objc func handleTap() {
@@ -68,15 +72,55 @@ extension ViewController: CAAnimationDelegate {
 
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         if flag {
-            print("Done")
             if first == false {
                 gradientLayer.colors = colors.last
             } else {
                 gradientLayer.colors = colors.first
             }
             view.setNeedsLayout()
+            print("Done")
         }
     }
 
+}
+
+extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! CatagoryCell
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 300, height: 370)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsetsMake(0, 28, 0, 28)
+    }
+    
+}
+
+class CatagoryCell: UICollectionViewCell {
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        // Setup CardView and background
+        backgroundColor = .white
+        layer.cornerRadius = 14
+        layer.shadowOpacity = 0.25
+        layer.shadowOffset = CGSize(width: 0, height: 10)
+        layer.shadowRadius = 5
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
 }
 
