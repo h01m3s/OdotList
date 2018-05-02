@@ -18,6 +18,10 @@ class ViewController: UIViewController {
     let cellId = "cellId"
     let gradientLayer = GradientLayer()
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,6 +33,25 @@ class ViewController: UIViewController {
         view.addGestureRecognizer(tap)
         
         setupCatagoryCollectionView()
+        
+        navigationItem.title = "TODO"
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(handleSearch))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "hamberger_icon"), style: .plain, target: self, action: #selector(handleMore))
+        
+        navigationController?.navigationBar.barStyle = .black
+    }
+    
+    @objc func handleSearch() {
+        print("handle search tapped")
+    }
+    
+    @objc func handleMore() {
+        print("Handle more")
     }
     
     fileprivate func setupCatagoryCollectionView() {
