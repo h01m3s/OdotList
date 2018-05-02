@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class HomeViewController: UIViewController {
     
     var first = true
     
@@ -32,7 +32,7 @@ class ViewController: UIViewController {
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         view.addGestureRecognizer(tap)
         
-        setupCatagoryCollectionView()
+        setupCategoryCollectionView()
         
         navigationItem.title = "TODO"
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
@@ -54,22 +54,23 @@ class ViewController: UIViewController {
         print("Handle more")
     }
     
-    fileprivate func setupCatagoryCollectionView() {
+    // MARK: Setup CategoryCollectionView
+    fileprivate func setupCategoryCollectionView() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 15
-        let catagoryCollectionView = UICollectionView(frame: view.frame, collectionViewLayout: layout)
-        catagoryCollectionView.backgroundColor = .clear
-        catagoryCollectionView.showsVerticalScrollIndicator = false
-        catagoryCollectionView.showsHorizontalScrollIndicator = false
+        let categoryCollectionView = UICollectionView(frame: view.frame, collectionViewLayout: layout)
+        categoryCollectionView.backgroundColor = .clear
+        categoryCollectionView.showsVerticalScrollIndicator = false
+        categoryCollectionView.showsHorizontalScrollIndicator = false
         let collectionViewHeight = (view.frame.height / 2)
         print("collectionViewHeight: \(collectionViewHeight)")
-        catagoryCollectionView.dataSource = self
-        catagoryCollectionView.delegate = self
-        catagoryCollectionView.register(CatagoryCell.self, forCellWithReuseIdentifier: cellId)
+        categoryCollectionView.dataSource = self
+        categoryCollectionView.delegate = self
+        categoryCollectionView.register(CategoryCell.self, forCellWithReuseIdentifier: cellId)
         
-        view.addSubview(catagoryCollectionView)
-        catagoryCollectionView.anchor(nil, left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 10, rightConstant: 0, widthConstant: 0, heightConstant: collectionViewHeight + 30)
+        view.addSubview(categoryCollectionView)
+        categoryCollectionView.anchor(nil, left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 10, rightConstant: 0, widthConstant: 0, heightConstant: collectionViewHeight + 30)
     }
     
     @objc func handleTap() {
@@ -91,7 +92,7 @@ class ViewController: UIViewController {
 
 }
 
-extension ViewController: CAAnimationDelegate {
+extension HomeViewController: CAAnimationDelegate {
 
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         if flag {
@@ -107,14 +108,14 @@ extension ViewController: CAAnimationDelegate {
 
 }
 
-extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 5
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! CatagoryCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! CategoryCell
         return cell
     }
     
@@ -128,7 +129,7 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate, 
     
 }
 
-class CatagoryCell: UICollectionViewCell {
+class CategoryCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
