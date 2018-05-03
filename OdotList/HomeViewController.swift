@@ -17,6 +17,7 @@ class HomeViewController: UIViewController {
     
     let cellId = "cellId"
     fileprivate lazy var collectionViewHeight = view.frame.height / 2
+    var previousCenteredCell: UICollectionViewCell?
     let gradientLayer = GradientLayer()
 
     let layout: UICollectionViewFlowLayout = {
@@ -25,7 +26,6 @@ class HomeViewController: UIViewController {
         layout.minimumLineSpacing = 15
         return layout
     }()
-    
     
     lazy var categoryCollectionView = UICollectionView(frame: view.frame, collectionViewLayout: layout)
     
@@ -67,7 +67,7 @@ class HomeViewController: UIViewController {
         
         
         view.addSubview(profileImageView)
-        profileImageView.anchor(view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, bottom: nil, right: nil, topConstant: 30, leftConstant: 42, bottomConstant: 0, rightConstant: 0, widthConstant: 44, heightConstant: 44)
+        profileImageView.anchor(view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, bottom: nil, right: nil, topConstant: 30, leftConstant: 55, bottomConstant: 0, rightConstant: 0, widthConstant: 44, heightConstant: 44)
     }
     
     @objc func handleSearch() {
@@ -88,23 +88,23 @@ class HomeViewController: UIViewController {
             let dateString = formatter.string(from: date)
             label.text = "TODAY: \(dateString)".uppercased()
             label.textColor = .white
-            label.font = UIFont.systemFont(ofSize: 14)
+            label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
             return label
         }()
         
         view.addSubview(dateLabel)
-        dateLabel.anchor(nil, left: view.leftAnchor, bottom: categoryCollectionView.topAnchor, right: nil, topConstant: 0, leftConstant: 42, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 15)
+        dateLabel.anchor(nil, left: view.leftAnchor, bottom: categoryCollectionView.topAnchor, right: nil, topConstant: 0, leftConstant: 55, bottomConstant: 8, rightConstant: 0, widthConstant: 0, heightConstant: 15)
         
         let greetingLabel: UILabel = {
             let label = UILabel()
             label.text = "Hello, Deadpool."
             label.textColor = .white
-            label.font = UIFont.systemFont(ofSize: 28, weight: .semibold)
+            label.font = UIFont.systemFont(ofSize: 28, weight: .bold)
             return label
         }()
         
         view.addSubview(greetingLabel)
-        greetingLabel.anchor(view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 100, leftConstant: 42, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 50)
+        greetingLabel.anchor(view.safeAreaLayoutGuide.topAnchor, left: dateLabel.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 100, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 50)
         
         let taskLabel: UILabel = {
             let label = UILabel()
@@ -115,7 +115,7 @@ class HomeViewController: UIViewController {
             return label
         }()
         view.addSubview(taskLabel)
-        taskLabel.anchor(view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 150, leftConstant: 42, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 50)
+        taskLabel.anchor(view.safeAreaLayoutGuide.topAnchor, left: dateLabel.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 150, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 50)
     }
     
     // MARK: Setup CategoryCollectionView
@@ -123,6 +123,7 @@ class HomeViewController: UIViewController {
         categoryCollectionView.backgroundColor = .clear
         categoryCollectionView.showsVerticalScrollIndicator = false
         categoryCollectionView.showsHorizontalScrollIndicator = false
+//        categoryCollectionView.isPagingEnabled = true
         categoryCollectionView.dataSource = self
         categoryCollectionView.delegate = self
         categoryCollectionView.register(CategoryCell.self, forCellWithReuseIdentifier: cellId)
@@ -160,7 +161,7 @@ extension HomeViewController: CAAnimationDelegate {
                 gradientLayer.colors = colors.first
             }
             view.setNeedsLayout()
-            print("Done")
+            print("layer Changed")
         }
     }
 
@@ -179,12 +180,47 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let frameWidth = view.frame.width
-        return CGSize(width: frameWidth * 75/100, height: collectionViewHeight - 10)
+        return CGSize(width: frameWidth * 75/100, height: collectionViewHeight)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsetsMake(0, 34, 0, 34)
+        let horizontalInset = view.frame.width * 25/100 / 2
+        print(horizontalInset)
+//        return UIEdgeInsetsMake(0, 34, 15, 34)
+        return UIEdgeInsetsMake(0, horizontalInset, 15, horizontalInset)
     }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        print("view did end dragging...")
+
+        guard var closestCell = categoryCollectionView.visibleCells.first else {
+            return
+        }
+
+        for cell in categoryCollectionView.visibleCells {
+            let closestCellDelta = abs(closestCell.center.x - categoryCollectionView.bounds.size.width / 2.0 - categoryCollectionView.contentOffset.x)
+            let cellDelta = abs(cell.center.x - categoryCollectionView.bounds.size.width / 2.0 - categoryCollectionView.contentOffset.x)
+            if cellDelta < closestCellDelta {
+                closestCell = cell
+            }
+        }
+
+        let indexPath = categoryCollectionView.indexPath(for: closestCell)
+
+        if (previousCenteredCell == nil || previousCenteredCell != closestCell){
+            previousCenteredCell = closestCell
+            handleTap()
+        }
+
+        categoryCollectionView.scrollToItem(at: indexPath!, at: .centeredHorizontally, animated: true)
+    }
+    
+//    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+//        // Maybe use this later with data model.
+//        let nextCell = velocity.x > 0 ? categoryCollectionView.visibleCells.last! : categoryCollectionView.visibleCells.first!
+//        let indexPath = categoryCollectionView.indexPath(for: nextCell)
+//        categoryCollectionView.scrollToItem(at: indexPath!, at: .centeredHorizontally, animated: true)
+//    }
     
 }
 
@@ -196,8 +232,8 @@ class CategoryCell: UICollectionViewCell {
         // Setup CardView and background
         backgroundColor = .white
         layer.cornerRadius = 14
-        layer.shadowOpacity = 0.25
-        layer.shadowOffset = CGSize(width: 0, height: 10)
+        layer.shadowOpacity = 0.3
+        layer.shadowOffset = CGSize(width: 5, height: 8)
         layer.shadowRadius = 5
     }
     
