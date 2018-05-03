@@ -10,13 +10,23 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
-    var first = true
+    fileprivate var first = true
     
     let colors = [[UIColor(hexString: "F4736A").cgColor, UIColor(hexString: "F8A05A").cgColor],
                   [UIColor(hexString: "7494DD").cgColor, UIColor(hexString: "79D0E2").cgColor]]
     
     let cellId = "cellId"
+    fileprivate lazy var collectionViewHeight = view.frame.height / 2
     let gradientLayer = GradientLayer()
+
+    let layout: UICollectionViewFlowLayout = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 15
+        return layout
+    }()
+    
+    lazy var categoryCollectionView = UICollectionView(frame: view.frame, collectionViewLayout: layout)
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -33,6 +43,7 @@ class HomeViewController: UIViewController {
         view.addGestureRecognizer(tap)
         
         setupCategoryCollectionView()
+        setupLabels()
         
         navigationItem.title = "TODO"
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
@@ -54,23 +65,35 @@ class HomeViewController: UIViewController {
         print("Handle more")
     }
     
+    // MARK: Setup Labels
+    fileprivate func setupLabels() {
+        let dateLabel: UILabel = {
+            let label = UILabel()
+            let date = Date()
+            let formatter = DateFormatter()
+            formatter.dateFormat = "MMM dd, yyyy"
+            let dateString = formatter.string(from: date)
+            label.text = "TODAY: \(dateString)".uppercased()
+            label.textColor = .white
+            label.font = UIFont.systemFont(ofSize: 14)
+            return label
+        }()
+        
+        view.addSubview(dateLabel)
+        dateLabel.anchor(nil, left: view.leftAnchor, bottom: categoryCollectionView.topAnchor, right: nil, topConstant: 0, leftConstant: 42, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 15)
+    }
+    
     // MARK: Setup CategoryCollectionView
     fileprivate func setupCategoryCollectionView() {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 15
-        let categoryCollectionView = UICollectionView(frame: view.frame, collectionViewLayout: layout)
         categoryCollectionView.backgroundColor = .clear
         categoryCollectionView.showsVerticalScrollIndicator = false
         categoryCollectionView.showsHorizontalScrollIndicator = false
-        let collectionViewHeight = (view.frame.height / 2)
-        print("collectionViewHeight: \(collectionViewHeight)")
         categoryCollectionView.dataSource = self
         categoryCollectionView.delegate = self
         categoryCollectionView.register(CategoryCell.self, forCellWithReuseIdentifier: cellId)
         
         view.addSubview(categoryCollectionView)
-        categoryCollectionView.anchor(nil, left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 10, rightConstant: 0, widthConstant: 0, heightConstant: collectionViewHeight + 30)
+        categoryCollectionView.anchor(nil, left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 10, rightConstant: 0, widthConstant: 0, heightConstant: collectionViewHeight + 20)
     }
     
     @objc func handleTap() {
@@ -120,11 +143,12 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 300, height: 370)
+        let frameWidth = view.frame.width
+        return CGSize(width: frameWidth * 75/100, height: collectionViewHeight - 10)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsetsMake(0, 28, 0, 28)
+        return UIEdgeInsetsMake(0, 34, 0, 34)
     }
     
 }
