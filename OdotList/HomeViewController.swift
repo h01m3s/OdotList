@@ -26,7 +26,16 @@ class HomeViewController: UIViewController {
         return layout
     }()
     
+    
     lazy var categoryCollectionView = UICollectionView(frame: view.frame, collectionViewLayout: layout)
+    
+    let profileImageView: UIImageView = {
+        let imageView = UIImageView(image: #imageLiteral(resourceName: "deadpool"))
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 22
+        return imageView
+    }()
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -55,6 +64,10 @@ class HomeViewController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "hamberger_icon"), style: .plain, target: self, action: #selector(handleMore))
         
         navigationController?.navigationBar.barStyle = .black
+        
+        
+        view.addSubview(profileImageView)
+        profileImageView.anchor(view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, bottom: nil, right: nil, topConstant: 30, leftConstant: 42, bottomConstant: 0, rightConstant: 0, widthConstant: 44, heightConstant: 44)
     }
     
     @objc func handleSearch() {
@@ -81,6 +94,28 @@ class HomeViewController: UIViewController {
         
         view.addSubview(dateLabel)
         dateLabel.anchor(nil, left: view.leftAnchor, bottom: categoryCollectionView.topAnchor, right: nil, topConstant: 0, leftConstant: 42, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 15)
+        
+        let greetingLabel: UILabel = {
+            let label = UILabel()
+            label.text = "Hello, Deadpool."
+            label.textColor = .white
+            label.font = UIFont.systemFont(ofSize: 28, weight: .semibold)
+            return label
+        }()
+        
+        view.addSubview(greetingLabel)
+        greetingLabel.anchor(view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 100, leftConstant: 42, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 50)
+        
+        let taskLabel: UILabel = {
+            let label = UILabel()
+            label.textColor = UIColor.lightText
+            label.font = UIFont.systemFont(ofSize: 14)
+            label.numberOfLines = 2
+            label.text = "Looks like feel good \nYou have 3 tasks to do today"
+            return label
+        }()
+        view.addSubview(taskLabel)
+        taskLabel.anchor(view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 150, leftConstant: 42, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 50)
     }
     
     // MARK: Setup CategoryCollectionView
@@ -171,4 +206,6 @@ class CategoryCell: UICollectionViewCell {
     }
     
 }
+
+
 
