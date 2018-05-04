@@ -15,6 +15,19 @@ class HomeViewController: UIViewController {
     let colors = [[UIColor(hexString: "F4736A").cgColor, UIColor(hexString: "F8A05A").cgColor],
                   [UIColor(hexString: "7494DD").cgColor, UIColor(hexString: "79D0E2").cgColor]]
     
+    lazy var button: UIButton = {
+        let button = UIButton(type: .system)
+        button.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        button.setTitle("+", for: .normal)
+        button.layer.cornerRadius = 25
+        let localLayer = GradientLayer(gradientDirection: .leftRight)
+        localLayer.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        localLayer.cornerRadius = 25
+        localLayer.colors = colors.last
+        button.layer.addSublayer(localLayer)
+        return button
+    }()
+    
     let cellId = "cellId"
     fileprivate lazy var collectionViewHeight = view.frame.height / 2
     var previousCenteredCell: UICollectionViewCell?
@@ -68,6 +81,19 @@ class HomeViewController: UIViewController {
         
         view.addSubview(profileImageView)
         profileImageView.anchor(view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, bottom: nil, right: nil, topConstant: 30, leftConstant: 55, bottomConstant: 0, rightConstant: 0, widthConstant: 44, heightConstant: 44)
+        
+        view.subviews.forEach { (view) in
+            view.alpha = 0
+        }
+        
+        UIView.animate(withDuration: 2) {
+            self.view.subviews.forEach({ (view) in
+                view.alpha = 1
+            })
+        }
+        
+        view.addSubview(button)
+        button.anchor(nil, left: nil, bottom: categoryCollectionView.topAnchor, right: view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 8, rightConstant: 16, widthConstant: 50, heightConstant: 50)
     }
     
     @objc func handleSearch() {
@@ -147,6 +173,13 @@ class HomeViewController: UIViewController {
         colorChangeAnimation.isRemovedOnCompletion = false
         colorChangeAnimation.delegate = self
         gradientLayer.add(colorChangeAnimation, forKey: "colorChange")
+        
+        let localLayer = GradientLayer(gradientDirection: .leftRight)
+        localLayer.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 50)
+        localLayer.colors = colors.last
+        button.layer.addSublayer(localLayer)
+        button.layer.cornerRadius = 0
+        button.anchor(nil, left: view.leftAnchor, bottom: categoryCollectionView.topAnchor, right: view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 8, rightConstant: 0, widthConstant: 0, heightConstant: 50)
     }
 
 }
@@ -192,6 +225,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         print("view did end dragging...")
+        print(categoryCollectionView.contentOffset)
 
         guard var closestCell = categoryCollectionView.visibleCells.first else {
             return
@@ -224,24 +258,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     
 }
 
-class CategoryCell: UICollectionViewCell {
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        // Setup CardView and background
-        backgroundColor = .white
-        layer.cornerRadius = 14
-        layer.shadowOpacity = 0.3
-        layer.shadowOffset = CGSize(width: 5, height: 8)
-        layer.shadowRadius = 5
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-}
+
 
 
 
