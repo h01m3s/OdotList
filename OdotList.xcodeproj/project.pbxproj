@@ -15,6 +15,7 @@
 		DB449428209BC8F500BC2237 /* DummyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB449427209BC8F500BC2237 /* DummyController.swift */; };
 		DB44942A209BC98C00BC2237 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB449429209BC98C00BC2237 /* CategoryCell.swift */; };
 		DB44942C209F675B00BC2237 /* ToDoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB44942B209F675B00BC2237 /* ToDoItem.swift */; };
+		DB44942E20A0D8AD00BC2237 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB44942D20A0D8AD00BC2237 /* Date+Extensions.swift */; };
 		DBE1C89E20929C3200952F7A /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE1C89D20929C3200952F7A /* UIColor+Extensions.swift */; };
 		DBE1C8A02092E60A00952F7A /* GradientLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE1C89F2092E60A00952F7A /* GradientLayer.swift */; };
 		DBE1C8A220943ED800952F7A /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE1C8A120943ED800952F7A /* UIView+Extensions.swift */; };
@@ -31,6 +32,7 @@
 		DB449427209BC8F500BC2237 /* DummyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyController.swift; sourceTree = "<group>"; };
 		DB449429209BC98C00BC2237 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		DB44942B209F675B00BC2237 /* ToDoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoItem.swift; sourceTree = "<group>"; };
+		DB44942D20A0D8AD00BC2237 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		DBE1C89D20929C3200952F7A /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		DBE1C89F2092E60A00952F7A /* GradientLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientLayer.swift; sourceTree = "<group>"; };
 		DBE1C8A120943ED800952F7A /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				DBE1C89D20929C3200952F7A /* UIColor+Extensions.swift */,
+				DB44942D20A0D8AD00BC2237 /* Date+Extensions.swift */,
 				DBE1C8A120943ED800952F7A /* UIView+Extensions.swift */,
 			);
 			path = Extensions;
@@ -163,6 +166,7 @@
 			files = (
 				DB3C4D942092967400B9296E /* HomeViewController.swift in Sources */,
 				DB449428209BC8F500BC2237 /* DummyController.swift in Sources */,
+				DB44942E20A0D8AD00BC2237 /* Date+Extensions.swift in Sources */,
 				DBE1C8A02092E60A00952F7A /* GradientLayer.swift in Sources */,
 				DB44942A209BC98C00BC2237 /* CategoryCell.swift in Sources */,
 				DBE1C8A220943ED800952F7A /* UIView+Extensions.swift in Sources */,
