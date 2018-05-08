@@ -12,35 +12,36 @@ class HomeViewController: UIViewController {
     
     fileprivate var first = true
     
-    let colors = [[UIColor(hexString: "F4736A").cgColor, UIColor(hexString: "F8A05A").cgColor],
-                  [UIColor(hexString: "7494DD").cgColor, UIColor(hexString: "79D0E2").cgColor]]
-    
     lazy var button: UIButton = {
         let button = UIButton(type: .system)
         button.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
         button.setTitle("+", for: .normal)
+        button.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 5, 0)
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 42, weight: .thin)
         button.layer.cornerRadius = 25
-        let localLayer = GradientLayer(gradientDirection: .leftRight)
-        localLayer.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
-        localLayer.cornerRadius = 25
-        localLayer.colors = colors.last
-        button.layer.addSublayer(localLayer)
+        button.backgroundColor = .clear
         return button
     }()
     
     let cellId = "cellId"
     fileprivate lazy var collectionViewHeight = view.frame.height / 2
     var previousCenteredCell: UICollectionViewCell?
-    let gradientLayer = GradientLayer()
+    
+    let viewGradientLayer = GradientLayer()
+    let buttonGradientLayer = GradientLayer(gradientDirection: GradientLayer.GradientDirection.leftRight)
 
-    let layout: UICollectionViewFlowLayout = {
+    
+    let categoryCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 15
-        return layout
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .clear
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.showsHorizontalScrollIndicator = false
+        return collectionView
     }()
-    
-    lazy var categoryCollectionView = UICollectionView(frame: view.frame, collectionViewLayout: layout)
     
     let profileImageView: UIImageView = {
         let imageView = UIImageView(image: #imageLiteral(resourceName: "deadpool"))
@@ -50,6 +51,32 @@ class HomeViewController: UIViewController {
         return imageView
     }()
     
+    // MARK: Labels
+    let dateLabel: UILabel = {
+        let label = UILabel()
+        label.text = "TODAY: \(Date().dateString())".uppercased()
+        label.textColor = .white
+        label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
+        return label
+    }()
+    
+    let greetingLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Hello, Deadpool."
+        label.textColor = .white
+        label.font = UIFont.systemFont(ofSize: 28, weight: .bold)
+        return label
+    }()
+    
+    let taskLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor.lightText
+        label.font = UIFont.systemFont(ofSize: 14)
+        label.numberOfLines = 2
+        label.text = "Looks like feel good \nYou have 3 tasks to do today"
+        return label
+    }()
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -57,16 +84,68 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        gradientLayer.colors = colors.first
-        gradientLayer.frame = view.frame
-        view.layer.addSublayer(gradientLayer)
+        setupViewGradient()
+        setupNavBar()
+        setupCategoryCollectionView()
+        setupLabelsAndProfileImage()
+        
+        
+       testButtonSetup()
+//        let today = Date()
+//        print("Today: \(today.dateString(ofStyle: .medium))")
+//        let tomorrow = today.adding(.day, value: 1)
+//        print("Tomorrow: \(tomorrow.dateString())")
+//        print("Now today: \(today.dateString())")
+        fadeInViewAnimation()
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         view.addGestureRecognizer(tap)
+    }
+    
+    fileprivate func fadeInViewAnimation() {
+        view.subviews.forEach { (view) in
+            view.alpha = 0
+        }
         
-        setupCategoryCollectionView()
-        setupLabels()
-        
+        UIView.animate(withDuration: 1) {
+            self.view.subviews.forEach({ (view) in
+                view.alpha = 1
+            })
+        }
+    }
+    
+    fileprivate func testButtonSetup() {
+        button.addTarget(self, action: #selector(testButtonAnimation), for: .touchUpInside)
+        view.addSubview(button)
+        button.anchor(nil, left: nil, bottom: categoryCollectionView.topAnchor, right: view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 8, rightConstant: 16, widthConstant: 50, heightConstant: 50)
+        buttonGradientLayer.colors = UIColor.blueGradient
+        buttonGradientLayer.frame = button.bounds
+        buttonGradientLayer.cornerRadius = 25
+        button.layer.insertSublayer(buttonGradientLayer, at: 0)
+    }
+    
+    @objc func testButtonAnimation() {
+        print("test button pressed")
+        CATransaction.begin()
+        CATransaction.setAnimationDuration(5)
+        CATransaction.setAnimationTimingFunction(CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut))
+        UIView.animate(withDuration: 5) {
+            self.button.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50)
+            self.button.layer.cornerRadius = 0
+            self.button.center = self.view.center
+            self.buttonGradientLayer.frame = self.button.bounds
+            self.buttonGradientLayer.cornerRadius = 0
+        }
+        CATransaction.commit()
+    }
+    
+    fileprivate func setupViewGradient() {
+        viewGradientLayer.colors = UIColor.orangeGradient
+        viewGradientLayer.frame = view.frame
+        view.layer.addSublayer(viewGradientLayer)
+    }
+    
+    fileprivate func setupNavBar() {
         navigationItem.title = "TODO"
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
@@ -77,23 +156,6 @@ class HomeViewController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "hamberger_icon"), style: .plain, target: self, action: #selector(handleMore))
         
         navigationController?.navigationBar.barStyle = .black
-        
-        
-        view.addSubview(profileImageView)
-        profileImageView.anchor(view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, bottom: nil, right: nil, topConstant: 30, leftConstant: 55, bottomConstant: 0, rightConstant: 0, widthConstant: 44, heightConstant: 44)
-        
-        view.subviews.forEach { (view) in
-            view.alpha = 0
-        }
-        
-        UIView.animate(withDuration: 2) {
-            self.view.subviews.forEach({ (view) in
-                view.alpha = 1
-            })
-        }
-        
-        view.addSubview(button)
-        button.anchor(nil, left: nil, bottom: categoryCollectionView.topAnchor, right: view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 8, rightConstant: 16, widthConstant: 50, heightConstant: 50)
     }
     
     @objc func handleSearch() {
@@ -105,51 +167,25 @@ class HomeViewController: UIViewController {
     }
     
     // MARK: Setup Labels
-    fileprivate func setupLabels() {
-        let dateLabel: UILabel = {
-            let label = UILabel()
-            let date = Date()
-            let formatter = DateFormatter()
-            formatter.dateFormat = "MMM dd, yyyy"
-            let dateString = formatter.string(from: date)
-            label.text = "TODAY: \(dateString)".uppercased()
-            label.textColor = .white
-            label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
-            return label
-        }()
+    fileprivate func setupLabelsAndProfileImage() {
         
+        // profileImageView
+        view.addSubview(profileImageView)
+        profileImageView.anchor(view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, bottom: nil, right: nil, topConstant: 30, leftConstant: 55, bottomConstant: 0, rightConstant: 0, widthConstant: 44, heightConstant: 44)
+        
+        // Setup Labels
         view.addSubview(dateLabel)
         dateLabel.anchor(nil, left: view.leftAnchor, bottom: categoryCollectionView.topAnchor, right: nil, topConstant: 0, leftConstant: 55, bottomConstant: 8, rightConstant: 0, widthConstant: 0, heightConstant: 15)
-        
-        let greetingLabel: UILabel = {
-            let label = UILabel()
-            label.text = "Hello, Deadpool."
-            label.textColor = .white
-            label.font = UIFont.systemFont(ofSize: 28, weight: .bold)
-            return label
-        }()
         
         view.addSubview(greetingLabel)
         greetingLabel.anchor(view.safeAreaLayoutGuide.topAnchor, left: dateLabel.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 100, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 50)
         
-        let taskLabel: UILabel = {
-            let label = UILabel()
-            label.textColor = UIColor.lightText
-            label.font = UIFont.systemFont(ofSize: 14)
-            label.numberOfLines = 2
-            label.text = "Looks like feel good \nYou have 3 tasks to do today"
-            return label
-        }()
         view.addSubview(taskLabel)
         taskLabel.anchor(view.safeAreaLayoutGuide.topAnchor, left: dateLabel.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 150, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 50)
     }
     
     // MARK: Setup CategoryCollectionView
     fileprivate func setupCategoryCollectionView() {
-        categoryCollectionView.backgroundColor = .clear
-        categoryCollectionView.showsVerticalScrollIndicator = false
-        categoryCollectionView.showsHorizontalScrollIndicator = false
-//        categoryCollectionView.isPagingEnabled = true
         categoryCollectionView.dataSource = self
         categoryCollectionView.delegate = self
         categoryCollectionView.register(CategoryCell.self, forCellWithReuseIdentifier: cellId)
@@ -162,24 +198,17 @@ class HomeViewController: UIViewController {
         let colorChangeAnimation = CABasicAnimation(keyPath: "colors")
         colorChangeAnimation.duration = 0.5
         if first == true {
-            colorChangeAnimation.toValue = colors.last
+            colorChangeAnimation.toValue = UIColor.blueGradient
             first = false
         } else {
-            colorChangeAnimation.toValue = colors.first
+            colorChangeAnimation.toValue = UIColor.orangeGradient
             first = true
         }
         
         colorChangeAnimation.fillMode = kCAFillModeForwards
         colorChangeAnimation.isRemovedOnCompletion = false
         colorChangeAnimation.delegate = self
-        gradientLayer.add(colorChangeAnimation, forKey: "colorChange")
-        
-        let localLayer = GradientLayer(gradientDirection: .leftRight)
-        localLayer.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 50)
-        localLayer.colors = colors.last
-        button.layer.addSublayer(localLayer)
-        button.layer.cornerRadius = 0
-        button.anchor(nil, left: view.leftAnchor, bottom: categoryCollectionView.topAnchor, right: view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 8, rightConstant: 0, widthConstant: 0, heightConstant: 50)
+        viewGradientLayer.add(colorChangeAnimation, forKey: "colorChange")
     }
 
 }
@@ -189,9 +218,9 @@ extension HomeViewController: CAAnimationDelegate {
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         if flag {
             if first == false {
-                gradientLayer.colors = colors.last
+                viewGradientLayer.colors = UIColor.blueGradient
             } else {
-                gradientLayer.colors = colors.first
+                viewGradientLayer.colors = UIColor.orangeGradient
             }
             view.setNeedsLayout()
             print("layer Changed")
