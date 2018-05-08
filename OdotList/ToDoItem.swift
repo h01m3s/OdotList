@@ -10,18 +10,48 @@ import Foundation
 
 struct ToDoItem {
     
+    enum ToDoPriority {
+        case critical
+        case important
+        case normal
+    }
+    
     typealias ItemId = UUID
     
     let id: ItemId
-    let title: String
-    let note: String
-    let priority: Int
-    let dueDate: Date
-    let creationDate: Date
+    var title: String
+    var note: String
+    var priority: ToDoPriority
+    let creationDate: TimeInterval
+    var dueDate: TimeInterval?
     
-//    init(title: String) {
-//        self.id = ItemId()
-//        self.title = title
+    init(title: String, note: String, priority: ToDoPriority = .normal, dueDate: TimeInterval? = nil) {
+        self.id = ItemId()
+        self.creationDate = Date().timeIntervalSince1970
+        self.title = title
+        self.note = note
+        self.priority = priority
+        self.dueDate = dueDate
+    }
+    
+//    private enum CodingKeys: String, CodingKey {
+//        case id
+//        case title
+//        case note
+//        case priority
+//        case dueDate
+//        case creationDate
+//    }
+
+    
+//    init(from decoder: Decoder) throws {
+//        let values = try decoder.container(keyedBy: CodingKeys.self)
+//        id = try values.decode(UUID.self, forKey: .id)
+//        title = try values.decode(String.self, forKey: .title)
+//        note = try values.decode(String.self, forKey: .note)
+//        priority = try values.decode(ToDoPriority.self, forKey: .priority)
+//        dueDate = try values.decode(TimeInterval.self, forKey: .dueDate)
+//        creationDate = try values.decode(TimeInterval.self, forKey: .dueDate)
 //    }
 }
 
