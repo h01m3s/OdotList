@@ -134,7 +134,7 @@ class HomeViewController: UIViewController {
         }
         UIView.animate(withDuration: 5) {
             for cell in self.categoryCollectionView.visibleCells as! [CategoryCell] {
-                cell.gradientProgressBar.setProgress(Float(drand48()), animated: true)
+                cell.animateGradientProgressBar(progress: Float(drand48()))
             }
         }
     }

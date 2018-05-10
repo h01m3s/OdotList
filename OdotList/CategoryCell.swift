@@ -10,7 +10,7 @@ import UIKit
 
 class CategoryCell: UICollectionViewCell {
     
-    let categoryImageView: UIImageView = {
+    private let categoryImageView: UIImageView = {
         let imageView = UIImageView(image: #imageLiteral(resourceName: "person").withRenderingMode(.alwaysTemplate))
         imageView.contentMode = .center
         imageView.tintColor = UIColor.orangeGradient.first
@@ -19,14 +19,14 @@ class CategoryCell: UICollectionViewCell {
         return imageView
     }()
     
-    let tasksLabel: UILabel = {
+    private let tasksLabel: UILabel = {
         let label = UILabel()
         label.text = "9 Tasks"
         label.textColor = UIColor.lightGray
         return label
     }()
     
-    let categoryTitleLabel: UILabel = {
+    private let categoryTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "Personal"
         label.font = UIFont.boldSystemFont(ofSize: 32)
@@ -34,7 +34,19 @@ class CategoryCell: UICollectionViewCell {
         return label
     }()
     
-    let gradientProgressBar = GradientProgressBar()
+    private let percentageLabel: UILabel = {
+        let label = UILabel()
+        label.text = "100%"
+        label.font = UIFont.systemFont(ofSize: 12)
+        label.textColor = UIColor.lightGray
+        return label
+    }()
+    
+    private let gradientProgressBar = GradientProgressBar()
+    
+    func animateGradientProgressBar(progress: Float) {
+        gradientProgressBar.setProgress(progress, animated: true)
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -44,7 +56,7 @@ class CategoryCell: UICollectionViewCell {
         setupSubViews()
     }
     
-    fileprivate func setupSubViews() {
+    private func setupSubViews() {
         addSubview(categoryImageView)
         categoryImageView.anchor(topAnchor, left: leftAnchor, bottom: nil, right: nil, topConstant: 24, leftConstant: 24, bottomConstant: 0, rightConstant: 0, widthConstant: 44, heightConstant: 44)
         categoryImageView.layer.cornerRadius = 22
@@ -55,11 +67,14 @@ class CategoryCell: UICollectionViewCell {
         addSubview(tasksLabel)
         tasksLabel.anchor(nil, left: leftAnchor, bottom: categoryTitleLabel.topAnchor, right: rightAnchor, topConstant: 0, leftConstant: 24, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 30)
         
+        addSubview(percentageLabel)
+        percentageLabel.anchor(nil, left: nil, bottom: bottomAnchor, right: rightAnchor, topConstant: 0, leftConstant: 24, bottomConstant: 60, rightConstant: 24, widthConstant: 35, heightConstant: 10)
+        
         addSubview(gradientProgressBar)
-        gradientProgressBar.anchor(nil, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 0, leftConstant: 24, bottomConstant: 60, rightConstant: 24, widthConstant: 0, heightConstant: 8)
+        gradientProgressBar.anchor(nil, left: leftAnchor, bottom: bottomAnchor, right: percentageLabel.leftAnchor, topConstant: 0, leftConstant: 24, bottomConstant: 61, rightConstant: 8, widthConstant: 0, heightConstant: 6)
     }
     
-    fileprivate func baseViewSetup() {
+    private func baseViewSetup() {
         backgroundColor = .white
         layer.cornerRadius = 14
         layer.shadowOpacity = 0.3
@@ -73,25 +88,3 @@ class CategoryCell: UICollectionViewCell {
     
 }
 
-//class GradientProgressBar: UIProgressView {
-//
-//    var cornerRadius: CGFloat = 0 {
-//        didSet {
-//            layer.cornerRadius = cornerRadius
-//            clipsToBounds = true
-//        }
-//    }
-//
-//    private let gradientLayer = GradientLayer(gradientDirection: GradientLayer.GradientDirection.leftRight)
-//
-//    override init(frame: CGRect) {
-//        super.init(frame: frame)
-//
-//        layer.addSublayer(gradientLayer)
-//    }
-//
-//    required init?(coder aDecoder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-//
-//}
