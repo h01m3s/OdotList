@@ -16,8 +16,9 @@
 		DB44942A209BC98C00BC2237 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB449429209BC98C00BC2237 /* CategoryCell.swift */; };
 		DB44942C209F675B00BC2237 /* ToDoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB44942B209F675B00BC2237 /* ToDoItem.swift */; };
 		DB44942E20A0D8AD00BC2237 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB44942D20A0D8AD00BC2237 /* Date+Extensions.swift */; };
+		DBAA52C720A3E9EB00089B2A /* GradientLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAA52C620A3E9EB00089B2A /* GradientLayer.swift */; };
+		DBAA52C920A3EAA000089B2A /* GradientProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAA52C820A3EAA000089B2A /* GradientProgressBar.swift */; };
 		DBE1C89E20929C3200952F7A /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE1C89D20929C3200952F7A /* UIColor+Extensions.swift */; };
-		DBE1C8A02092E60A00952F7A /* GradientLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE1C89F2092E60A00952F7A /* GradientLayer.swift */; };
 		DBE1C8A220943ED800952F7A /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE1C8A120943ED800952F7A /* UIView+Extensions.swift */; };
 /* End PBXBuildFile section */
 
@@ -33,8 +34,9 @@
 		DB449429209BC98C00BC2237 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		DB44942B209F675B00BC2237 /* ToDoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoItem.swift; sourceTree = "<group>"; };
 		DB44942D20A0D8AD00BC2237 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
+		DBAA52C620A3E9EB00089B2A /* GradientLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientLayer.swift; sourceTree = "<group>"; };
+		DBAA52C820A3EAA000089B2A /* GradientProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientProgressBar.swift; sourceTree = "<group>"; };
 		DBE1C89D20929C3200952F7A /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
-		DBE1C89F2092E60A00952F7A /* GradientLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientLayer.swift; sourceTree = "<group>"; };
 		DBE1C8A120943ED800952F7A /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -49,6 +51,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DB23E15520A2449F00F54133 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				DB3C4D952092967400B9296E /* Main.storyboard */,
+				DB3C4D9A2092967600B9296E /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
 		DB3C4D852092967300B9296E = {
 			isa = PBXGroup;
 			children = (
@@ -71,13 +82,13 @@
 				DB3C4D912092967400B9296E /* AppDelegate.swift */,
 				DB3C4D932092967400B9296E /* HomeViewController.swift */,
 				DB449429209BC98C00BC2237 /* CategoryCell.swift */,
+				DBAA52C820A3EAA000089B2A /* GradientProgressBar.swift */,
+				DBAA52C620A3E9EB00089B2A /* GradientLayer.swift */,
 				DB44942B209F675B00BC2237 /* ToDoItem.swift */,
-				DBE1C89F2092E60A00952F7A /* GradientLayer.swift */,
 				DB449427209BC8F500BC2237 /* DummyController.swift */,
 				DBE1C8A320943EE600952F7A /* Extensions */,
-				DB3C4D952092967400B9296E /* Main.storyboard */,
+				DB23E15520A2449F00F54133 /* Storyboards */,
 				DB3C4D982092967600B9296E /* Assets.xcassets */,
-				DB3C4D9A2092967600B9296E /* LaunchScreen.storyboard */,
 				DB3C4D9D2092967600B9296E /* Info.plist */,
 			);
 			path = OdotList;
@@ -164,10 +175,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBAA52C920A3EAA000089B2A /* GradientProgressBar.swift in Sources */,
 				DB3C4D942092967400B9296E /* HomeViewController.swift in Sources */,
 				DB449428209BC8F500BC2237 /* DummyController.swift in Sources */,
+				DBAA52C720A3E9EB00089B2A /* GradientLayer.swift in Sources */,
 				DB44942E20A0D8AD00BC2237 /* Date+Extensions.swift in Sources */,
-				DBE1C8A02092E60A00952F7A /* GradientLayer.swift in Sources */,
 				DB44942A209BC98C00BC2237 /* CategoryCell.swift in Sources */,
 				DBE1C8A220943ED800952F7A /* UIView+Extensions.swift in Sources */,
 				DBE1C89E20929C3200952F7A /* UIColor+Extensions.swift in Sources */,

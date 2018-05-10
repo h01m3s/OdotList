@@ -20,6 +20,7 @@ class HomeViewController: UIViewController {
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 42, weight: .thin)
         button.layer.cornerRadius = 25
+        button.clipsToBounds = true
         button.backgroundColor = .clear
         return button
     }()
@@ -47,7 +48,7 @@ class HomeViewController: UIViewController {
         let imageView = UIImageView(image: #imageLiteral(resourceName: "deadpool"))
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 22
+        imageView.layer.cornerRadius = 25
         return imageView
     }()
     
@@ -118,29 +119,28 @@ class HomeViewController: UIViewController {
         button.addTarget(self, action: #selector(testButtonAnimation), for: .touchUpInside)
         view.addSubview(button)
         button.anchor(nil, left: nil, bottom: categoryCollectionView.topAnchor, right: view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 8, rightConstant: 16, widthConstant: 50, heightConstant: 50)
-        buttonGradientLayer.colors = UIColor.blueGradient
+        buttonGradientLayer.colors = UIColor.blueGradient.map { $0.cgColor }
         buttonGradientLayer.frame = button.bounds
-        buttonGradientLayer.cornerRadius = 25
         button.layer.insertSublayer(buttonGradientLayer, at: 0)
     }
     
     @objc func testButtonAnimation() {
         print("test button pressed")
-        CATransaction.begin()
-        CATransaction.setAnimationDuration(5)
-        CATransaction.setAnimationTimingFunction(CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut))
-        UIView.animate(withDuration: 5) {
+        UIView.animate(withDuration: 1.0) {
             self.button.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50)
             self.button.layer.cornerRadius = 0
             self.button.center = self.view.center
             self.buttonGradientLayer.frame = self.button.bounds
-            self.buttonGradientLayer.cornerRadius = 0
         }
-        CATransaction.commit()
+        UIView.animate(withDuration: 5) {
+            for cell in self.categoryCollectionView.visibleCells as! [CategoryCell] {
+                cell.gradientProgressBar.setProgress(Float(drand48()), animated: true)
+            }
+        }
     }
     
     fileprivate func setupViewGradient() {
-        viewGradientLayer.colors = UIColor.orangeGradient
+        viewGradientLayer.colors = UIColor.orangeGradient.map { $0.cgColor }
         viewGradientLayer.frame = view.frame
         view.layer.addSublayer(viewGradientLayer)
     }
@@ -171,7 +171,7 @@ class HomeViewController: UIViewController {
         
         // profileImageView
         view.addSubview(profileImageView)
-        profileImageView.anchor(view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, bottom: nil, right: nil, topConstant: 30, leftConstant: 55, bottomConstant: 0, rightConstant: 0, widthConstant: 44, heightConstant: 44)
+        profileImageView.anchor(view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, bottom: nil, right: nil, topConstant: 30, leftConstant: 55, bottomConstant: 0, rightConstant: 0, widthConstant: 50, heightConstant: 50)
         
         // Setup Labels
         view.addSubview(dateLabel)
@@ -198,10 +198,10 @@ class HomeViewController: UIViewController {
         let colorChangeAnimation = CABasicAnimation(keyPath: "colors")
         colorChangeAnimation.duration = 0.5
         if first == true {
-            colorChangeAnimation.toValue = UIColor.blueGradient
+            colorChangeAnimation.toValue = UIColor.blueGradient.map { $0.cgColor }
             first = false
         } else {
-            colorChangeAnimation.toValue = UIColor.orangeGradient
+            colorChangeAnimation.toValue = UIColor.orangeGradient.map { $0.cgColor }
             first = true
         }
         
@@ -218,9 +218,9 @@ extension HomeViewController: CAAnimationDelegate {
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         if flag {
             if first == false {
-                viewGradientLayer.colors = UIColor.blueGradient
+                viewGradientLayer.colors = UIColor.blueGradient.map { $0.cgColor }
             } else {
-                viewGradientLayer.colors = UIColor.orangeGradient
+                viewGradientLayer.colors = UIColor.orangeGradient.map { $0.cgColor }
             }
             view.setNeedsLayout()
             print("layer Changed")

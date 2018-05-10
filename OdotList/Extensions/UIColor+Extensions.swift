@@ -11,8 +11,8 @@ import UIKit
 
 extension UIColor {
     
-    static let orangeGradient = [UIColor(hexString: "F4736A").cgColor, UIColor(hexString: "F8A05A").cgColor]
-    static let blueGradient = [UIColor(hexString: "7494DD").cgColor, UIColor(hexString: "79D0E2").cgColor]
+    static let orangeGradient = [UIColor(hexString: "F4736A"), UIColor(hexString: "F8A05A")]
+    static let blueGradient = [UIColor(hexString: "7494DD"), UIColor(hexString: "79D0E2")]
     
 }
 
