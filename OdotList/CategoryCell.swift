@@ -21,7 +21,7 @@ class CategoryCell: UICollectionViewCell {
     
     private let tasksLabel: UILabel = {
         let label = UILabel()
-        label.text = "9 Tasks"
+        label.text = "0 Tasks"
         label.textColor = UIColor.lightGray
         return label
     }()
@@ -36,7 +36,7 @@ class CategoryCell: UICollectionViewCell {
     
     private let percentageLabel: UILabel = {
         let label = UILabel()
-        label.text = "100%"
+        label.text = "0%"
         label.font = UIFont.systemFont(ofSize: 12)
         label.textColor = UIColor.lightGray
         return label
@@ -44,8 +44,15 @@ class CategoryCell: UICollectionViewCell {
     
     private let gradientProgressBar = GradientProgressBar()
     
-    func animateGradientProgressBar(progress: Float) {
-        gradientProgressBar.setProgress(progress, animated: true)
+    private func animateGradientProgressBar(progress: Double) {
+        gradientProgressBar.setProgress(Float(progress), animated: true)
+    }
+    
+    var progress: Double = 0 {
+        didSet {
+            animateGradientProgressBar(progress: progress)
+            percentageLabel.text = "\(Int((progress * 100)))%"
+        }
     }
     
     override init(frame: CGRect) {

@@ -126,15 +126,15 @@ class HomeViewController: UIViewController {
     
     @objc func testButtonAnimation() {
         print("test button pressed")
-        UIView.animate(withDuration: 1.0) {
-            self.button.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50)
-            self.button.layer.cornerRadius = 0
-            self.button.center = self.view.center
-            self.buttonGradientLayer.frame = self.button.bounds
-        }
+//        UIView.animate(withDuration: 1.0) {
+//            self.button.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50)
+//            self.button.layer.cornerRadius = 0
+//            self.button.center = self.view.center
+//            self.buttonGradientLayer.frame = self.button.bounds
+//        }
         UIView.animate(withDuration: 5) {
             for cell in self.categoryCollectionView.visibleCells as! [CategoryCell] {
-                cell.animateGradientProgressBar(progress: Float(drand48()))
+                cell.progress = drand48()
             }
         }
     }
@@ -254,7 +254,6 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         print("view did end dragging...")
-        print(categoryCollectionView.contentOffset)
 
         guard var closestCell = categoryCollectionView.visibleCells.first else {
             return
@@ -274,7 +273,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             previousCenteredCell = closestCell
             handleTap()
         }
-
+        
         categoryCollectionView.scrollToItem(at: indexPath!, at: .centeredHorizontally, animated: true)
     }
     
