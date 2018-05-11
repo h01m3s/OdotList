@@ -20,6 +20,7 @@
 		DBAA52CB20A3F92900089B2A /* GradientProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAA52CA20A3F92900089B2A /* GradientProgressBar.swift */; };
 		DBE1C89E20929C3200952F7A /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE1C89D20929C3200952F7A /* UIColor+Extensions.swift */; };
 		DBE1C8A220943ED800952F7A /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE1C8A120943ED800952F7A /* UIView+Extensions.swift */; };
+		DBF7A06F20A60D31004265DE /* ToDoCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF7A06E20A60D31004265DE /* ToDoCategory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		DBAA52CA20A3F92900089B2A /* GradientProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientProgressBar.swift; sourceTree = "<group>"; };
 		DBE1C89D20929C3200952F7A /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		DBE1C8A120943ED800952F7A /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		DBF7A06E20A60D31004265DE /* ToDoCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoCategory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +87,7 @@
 				DBAA52C620A3E9EB00089B2A /* GradientLayer.swift */,
 				DBAA52CA20A3F92900089B2A /* GradientProgressBar.swift */,
 				DB44942B209F675B00BC2237 /* ToDoItem.swift */,
+				DBF7A06E20A60D31004265DE /* ToDoCategory.swift */,
 				DB449427209BC8F500BC2237 /* DummyController.swift */,
 				DBE1C8A320943EE600952F7A /* Extensions */,
 				DB23E15520A2449F00F54133 /* Storyboards */,
@@ -178,6 +181,7 @@
 				DBAA52CB20A3F92900089B2A /* GradientProgressBar.swift in Sources */,
 				DB3C4D942092967400B9296E /* HomeViewController.swift in Sources */,
 				DB449428209BC8F500BC2237 /* DummyController.swift in Sources */,
+				DBF7A06F20A60D31004265DE /* ToDoCategory.swift in Sources */,
 				DBAA52C720A3E9EB00089B2A /* GradientLayer.swift in Sources */,
 				DB44942E20A0D8AD00BC2237 /* Date+Extensions.swift in Sources */,
 				DB44942A209BC98C00BC2237 /* CategoryCell.swift in Sources */,
