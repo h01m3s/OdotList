@@ -20,4 +20,15 @@ class ToDoStore {
     
     static let shared = ToDoStore()
     
+    private var categories: [ToDoCategory] = []
+    
+    func append(category: ToDoCategory) {
+        categories.append(category)
+    }
+    
+    func append(newItems: [ToDoCategory]) {
+        categories.append(contentsOf: newItems)
+    }
+    
+    
 }
