@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB0B182320A9FB6100A20592 /* Notification+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0B182220A9FB6100A20592 /* Notification+Helper.swift */; };
 		DB3C4D922092967400B9296E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3C4D912092967400B9296E /* AppDelegate.swift */; };
 		DB3C4D942092967400B9296E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3C4D932092967400B9296E /* HomeViewController.swift */; };
 		DB3C4D972092967400B9296E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB3C4D952092967400B9296E /* Main.storyboard */; };
@@ -20,11 +21,12 @@
 		DBAA52CB20A3F92900089B2A /* GradientProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAA52CA20A3F92900089B2A /* GradientProgressBar.swift */; };
 		DBE1C89E20929C3200952F7A /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE1C89D20929C3200952F7A /* UIColor+Extensions.swift */; };
 		DBE1C8A220943ED800952F7A /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE1C8A120943ED800952F7A /* UIView+Extensions.swift */; };
-		DBE2F2DC20A7C009008CD6D6 /* ToDoStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE2F2DB20A7C009008CD6D6 /* ToDoStore.swift */; };
+		DBE2F2DC20A7C009008CD6D6 /* CategoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE2F2DB20A7C009008CD6D6 /* CategoryStore.swift */; };
 		DBF7A06F20A60D31004265DE /* ToDoCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF7A06E20A60D31004265DE /* ToDoCategory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DB0B182220A9FB6100A20592 /* Notification+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Helper.swift"; sourceTree = "<group>"; };
 		DB3C4D8E2092967300B9296E /* OdotList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OdotList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB3C4D912092967400B9296E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DB3C4D932092967400B9296E /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -40,7 +42,7 @@
 		DBAA52CA20A3F92900089B2A /* GradientProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientProgressBar.swift; sourceTree = "<group>"; };
 		DBE1C89D20929C3200952F7A /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		DBE1C8A120943ED800952F7A /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
-		DBE2F2DB20A7C009008CD6D6 /* ToDoStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoStore.swift; sourceTree = "<group>"; };
+		DBE2F2DB20A7C009008CD6D6 /* CategoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryStore.swift; sourceTree = "<group>"; };
 		DBF7A06E20A60D31004265DE /* ToDoCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoCategory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -104,6 +106,7 @@
 				DBE1C89D20929C3200952F7A /* UIColor+Extensions.swift */,
 				DB44942D20A0D8AD00BC2237 /* Date+Extensions.swift */,
 				DBE1C8A120943ED800952F7A /* UIView+Extensions.swift */,
+				DB0B182220A9FB6100A20592 /* Notification+Helper.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -113,7 +116,7 @@
 			children = (
 				DB44942B209F675B00BC2237 /* ToDoItem.swift */,
 				DBF7A06E20A60D31004265DE /* ToDoCategory.swift */,
-				DBE2F2DB20A7C009008CD6D6 /* ToDoStore.swift */,
+				DBE2F2DB20A7C009008CD6D6 /* CategoryStore.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -190,7 +193,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DBAA52CB20A3F92900089B2A /* GradientProgressBar.swift in Sources */,
-				DBE2F2DC20A7C009008CD6D6 /* ToDoStore.swift in Sources */,
+				DBE2F2DC20A7C009008CD6D6 /* CategoryStore.swift in Sources */,
 				DB3C4D942092967400B9296E /* HomeViewController.swift in Sources */,
 				DB449428209BC8F500BC2237 /* DummyController.swift in Sources */,
 				DBF7A06F20A60D31004265DE /* ToDoCategory.swift in Sources */,
@@ -198,6 +201,7 @@
 				DB44942E20A0D8AD00BC2237 /* Date+Extensions.swift in Sources */,
 				DB44942A209BC98C00BC2237 /* CategoryCell.swift in Sources */,
 				DBE1C8A220943ED800952F7A /* UIView+Extensions.swift in Sources */,
+				DB0B182320A9FB6100A20592 /* Notification+Helper.swift in Sources */,
 				DBE1C89E20929C3200952F7A /* UIColor+Extensions.swift in Sources */,
 				DB44942C209F675B00BC2237 /* ToDoItem.swift in Sources */,
 				DB3C4D922092967400B9296E /* AppDelegate.swift in Sources */,

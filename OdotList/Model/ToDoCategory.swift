@@ -16,3 +16,19 @@ struct ToDoCategory {
     var categoryItems: [ToDoItem]
     
 }
+
+extension ToDoCategory: Hashable {
+    
+    var hashValue: Int {
+        return categoryName.hashValue
+    }
+    
+}
+
+extension ToDoCategory: Equatable {
+    
+    public static func == (lhs: ToDoCategory, rhs: ToDoCategory) -> Bool {
+        return lhs.hashValue == rhs.hashValue
+    }
+    
+}
