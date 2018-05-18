@@ -16,7 +16,7 @@ class GradientProgressBar: UIProgressView {
         }
     }
     
-    var cornerRadius: CGFloat = 3 {
+    var cornerRadius: CGFloat = 2 {
         didSet {
             layer.cornerRadius = cornerRadius
         }

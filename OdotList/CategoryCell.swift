@@ -89,7 +89,8 @@ class CategoryCell: UICollectionViewCell {
         percentageLabel.anchor(nil, left: nil, bottom: bottomAnchor, right: rightAnchor, topConstant: 0, leftConstant: 24, bottomConstant: 60, rightConstant: 24, widthConstant: 35, heightConstant: 10)
         
         addSubview(gradientProgressBar)
-        gradientProgressBar.anchor(nil, left: leftAnchor, bottom: bottomAnchor, right: percentageLabel.leftAnchor, topConstant: 0, leftConstant: 24, bottomConstant: 61, rightConstant: 8, widthConstant: 0, heightConstant: 6)
+        gradientProgressBar.anchor(nil, left: leftAnchor, bottom: nil, right: percentageLabel.leftAnchor, topConstant: 0, leftConstant: 24, bottomConstant: 0, rightConstant: 8, widthConstant: 0, heightConstant: 4)
+        gradientProgressBar.centerYAnchor.constraint(equalTo: percentageLabel.centerYAnchor, constant: 1).isActive = true
     }
     
     private func baseViewSetup() {
