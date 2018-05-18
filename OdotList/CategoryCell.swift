@@ -55,6 +55,17 @@ class CategoryCell: UICollectionViewCell {
         }
     }
     
+    var todoCategory: ToDoCategory? {
+        didSet {
+            guard let category = todoCategory else { return }
+            categoryImageView.image = category.categoryIcon.withRenderingMode(.alwaysTemplate)
+            categoryImageView.tintColor = category.categoryGradientColors.first
+            categoryImageView.layer.borderColor = category.categoryGradientColors.first?.cgColor
+            categoryTitleLabel.text = category.categoryName
+            gradientProgressBar.gradientColors = category.categoryGradientColors.map { $0.cgColor }
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         

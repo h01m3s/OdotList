@@ -46,6 +46,7 @@ class HomeViewController: UIViewController {
     
     let profileImageView: UIImageView = {
         let imageView = UIImageView(image: #imageLiteral(resourceName: "deadpool"))
+        imageView.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 25
@@ -55,6 +56,7 @@ class HomeViewController: UIViewController {
     // MARK: Labels
     let dateLabel: UILabel = {
         let label = UILabel()
+        label.frame = CGRect(x: 0, y: 0, width: 0, height: 15)
         label.text = "TODAY: \(Date().dateString())".uppercased()
         label.textColor = .white
         label.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
@@ -63,6 +65,7 @@ class HomeViewController: UIViewController {
     
     let greetingLabel: UILabel = {
         let label = UILabel()
+        label.frame = CGRect(x: 0, y: 0, width: 0, height: 50)
         label.text = "Hello, Deadpool."
         label.textColor = .white
         label.font = UIFont.systemFont(ofSize: 28, weight: .bold)
@@ -71,6 +74,7 @@ class HomeViewController: UIViewController {
     
     let taskLabel: UILabel = {
         let label = UILabel()
+        label.frame = CGRect(x: 0, y: 0, width: 0, height: 50)
         label.textColor = UIColor.lightText
         label.font = UIFont.systemFont(ofSize: 14)
         label.numberOfLines = 2
@@ -86,12 +90,12 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         setupViewGradient()
-        setupNavBar()
+//        setupNavBar()
         setupCategoryCollectionView()
         setupLabelsAndProfileImage()
         
         
-       testButtonSetup()
+//       testButtonSetup()
 //        let today = Date()
 //        print("Today: \(today.dateString(ofStyle: .medium))")
 //        let tomorrow = today.adding(.day, value: 1)
@@ -99,8 +103,22 @@ class HomeViewController: UIViewController {
 //        print("Now today: \(today.dateString())")
         fadeInViewAnimation()
         
-        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
-        view.addGestureRecognizer(tap)
+//        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+//        view.addGestureRecognizer(tap)
+        
+        dummyDataTest()
+        testButtonAnimation()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        setupNavBar()
+    }
+    
+    var todoCategories: [ToDoCategory] = []
+    func dummyDataTest() {
+        todoCategories = [ToDoCategory(categoryName: "Personal", categoryIcon: #imageLiteral(resourceName: "person"), categoryGradientColors: UIColor.orangeGradient, categoryItems: []),
+                        ToDoCategory(categoryName: "Work", categoryIcon: #imageLiteral(resourceName: "work_icon"), categoryGradientColors: UIColor.blueGradient, categoryItems: [])
+                        ]
     }
     
     fileprivate func fadeInViewAnimation() {
@@ -141,6 +159,7 @@ class HomeViewController: UIViewController {
     
     fileprivate func setupViewGradient() {
         viewGradientLayer.colors = UIColor.orangeGradient.map { $0.cgColor }
+//        viewGradientLayer.gradientColors = UIColor.orangeGradient
         viewGradientLayer.frame = view.frame
         view.layer.addSublayer(viewGradientLayer)
     }
@@ -172,16 +191,24 @@ class HomeViewController: UIViewController {
         // profileImageView
         view.addSubview(profileImageView)
         profileImageView.anchor(view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, bottom: nil, right: nil, topConstant: 30, leftConstant: 55, bottomConstant: 0, rightConstant: 0, widthConstant: 50, heightConstant: 50)
-        
+
         // Setup Labels
         view.addSubview(dateLabel)
         dateLabel.anchor(nil, left: view.leftAnchor, bottom: categoryCollectionView.topAnchor, right: nil, topConstant: 0, leftConstant: 55, bottomConstant: 8, rightConstant: 0, widthConstant: 0, heightConstant: 15)
-        
+
         view.addSubview(greetingLabel)
         greetingLabel.anchor(view.safeAreaLayoutGuide.topAnchor, left: dateLabel.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 100, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 50)
-        
+
         view.addSubview(taskLabel)
         taskLabel.anchor(view.safeAreaLayoutGuide.topAnchor, left: dateLabel.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 150, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 50)
+        
+//        let stackView = UIStackView(arrangedSubviews: [profileImageView, greetingLabel, taskLabel, dateLabel])
+//        stackView.distribution = .equalSpacing
+//        stackView.axis = .vertical
+//        view.addSubview(stackView)
+//        stackView.anchor(view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, bottom: categoryCollectionView.topAnchor, right: view.rightAnchor, topConstant: 30, leftConstant: 55, bottomConstant: 0, rightConstant: 55, widthConstant: 0, heightConstant: 0)
+//
+//        profileImageView.anchor(stackView.topAnchor, left: stackView.leftAnchor, bottom: nil, right: nil, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 50, heightConstant: 50)
     }
     
     // MARK: Setup CategoryCollectionView
@@ -232,11 +259,13 @@ extension HomeViewController: CAAnimationDelegate {
 extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+//        return 5
+        return todoCategories.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! CategoryCell
+        cell.todoCategory = todoCategories[indexPath.item]
         return cell
     }
     
@@ -250,6 +279,14 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         print(horizontalInset)
 //        return UIEdgeInsetsMake(0, 34, 15, 34)
         return UIEdgeInsetsMake(0, horizontalInset, 15, horizontalInset)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        navigationItem.title = ""
+        let selectedCategory = todoCategories[indexPath.item]
+        let categoryViewController = CategoryViewController()
+        categoryViewController.todoCategory = selectedCategory
+        navigationController?.pushViewController(categoryViewController, animated: true)
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
@@ -272,6 +309,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         if (previousCenteredCell == nil || previousCenteredCell != closestCell){
             previousCenteredCell = closestCell
             handleTap()
+            testButtonAnimation()
         }
         
         categoryCollectionView.scrollToItem(at: indexPath!, at: .centeredHorizontally, animated: true)

@@ -24,10 +24,12 @@ struct ToDoItem {
     var priority: ToDoPriority
     let creationDate: TimeInterval
     var dueDate: TimeInterval?
+    var isComplete: Bool
     
     init(title: String, note: String, priority: ToDoPriority = .normal, dueDate: TimeInterval? = nil) {
         self.id = ItemId()
         self.creationDate = Date().timeIntervalSince1970
+        self.isComplete = false
         self.title = title
         self.note = note
         self.priority = priority

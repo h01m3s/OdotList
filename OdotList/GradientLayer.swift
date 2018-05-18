@@ -46,6 +46,12 @@ class GradientLayer: CAGradientLayer {
         
     }
     
+    var gradientColors: [UIColor] = [UIColor.white] {
+        didSet {
+            colors = gradientColors.map { $0.cgColor }
+        }
+    }
+    
     var gradientDirection: GradientDirection? {
         didSet {
             guard let gradientDirection = gradientDirection else { return }

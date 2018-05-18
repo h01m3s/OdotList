@@ -12,7 +12,7 @@ struct ToDoCategory {
     
     var categoryName: String
     var categoryIcon: UIImage
-    var categoryGradientColors: [CGColor]
+    var categoryGradientColors: [UIColor]
     var categoryItems: [ToDoItem]
     
 }

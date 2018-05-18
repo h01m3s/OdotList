@@ -19,6 +19,7 @@
 		DB44942E20A0D8AD00BC2237 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB44942D20A0D8AD00BC2237 /* Date+Extensions.swift */; };
 		DBAA52C720A3E9EB00089B2A /* GradientLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAA52C620A3E9EB00089B2A /* GradientLayer.swift */; };
 		DBAA52CB20A3F92900089B2A /* GradientProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAA52CA20A3F92900089B2A /* GradientProgressBar.swift */; };
+		DBD7766720AE78B30091E76C /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD7766620AE78B30091E76C /* CategoryViewController.swift */; };
 		DBE1C89E20929C3200952F7A /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE1C89D20929C3200952F7A /* UIColor+Extensions.swift */; };
 		DBE1C8A220943ED800952F7A /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE1C8A120943ED800952F7A /* UIView+Extensions.swift */; };
 		DBE2F2DC20A7C009008CD6D6 /* CategoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE2F2DB20A7C009008CD6D6 /* CategoryStore.swift */; };
@@ -40,6 +41,7 @@
 		DB44942D20A0D8AD00BC2237 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		DBAA52C620A3E9EB00089B2A /* GradientLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientLayer.swift; sourceTree = "<group>"; };
 		DBAA52CA20A3F92900089B2A /* GradientProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientProgressBar.swift; sourceTree = "<group>"; };
+		DBD7766620AE78B30091E76C /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		DBE1C89D20929C3200952F7A /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		DBE1C8A120943ED800952F7A /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		DBE2F2DB20A7C009008CD6D6 /* CategoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryStore.swift; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 			children = (
 				DB3C4D912092967400B9296E /* AppDelegate.swift */,
 				DB3C4D932092967400B9296E /* HomeViewController.swift */,
+				DBD7766620AE78B30091E76C /* CategoryViewController.swift */,
 				DB449429209BC98C00BC2237 /* CategoryCell.swift */,
 				DBAA52C620A3E9EB00089B2A /* GradientLayer.swift */,
 				DBAA52CA20A3F92900089B2A /* GradientProgressBar.swift */,
@@ -194,6 +197,7 @@
 			files = (
 				DBAA52CB20A3F92900089B2A /* GradientProgressBar.swift in Sources */,
 				DBE2F2DC20A7C009008CD6D6 /* CategoryStore.swift in Sources */,
+				DBD7766720AE78B30091E76C /* CategoryViewController.swift in Sources */,
 				DB3C4D942092967400B9296E /* HomeViewController.swift in Sources */,
 				DB449428209BC8F500BC2237 /* DummyController.swift in Sources */,
 				DBF7A06F20A60D31004265DE /* ToDoCategory.swift in Sources */,

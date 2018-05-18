@@ -24,10 +24,8 @@ class CategoryStore {
         didSet {
             let behavior = CategoryStore.diff(original: oldValue, now: categories)
             NotificationCenter.default.post(
-//                name: .toDoStoreDidChangedNotification,
                 name: .categoryStoreDidChangedNotification,
                 object: self,
-//                typedUserInfo: [.toDoStoreDidChangedChangeBehaviorKey: behavior]
                 typedUserInfo: [.cagetoryStoreDidChangedChangeBehaviorKey: behavior]
             )
         }
