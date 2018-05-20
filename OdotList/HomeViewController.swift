@@ -96,15 +96,7 @@ class HomeViewController: UIViewController {
         
         
 //       testButtonSetup()
-//        let today = Date()
-//        print("Today: \(today.dateString(ofStyle: .medium))")
-//        let tomorrow = today.adding(.day, value: 1)
-//        print("Tomorrow: \(tomorrow.dateString())")
-//        print("Now today: \(today.dateString())")
         fadeInViewAnimation()
-        
-//        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
-//        view.addGestureRecognizer(tap)
         
         dummyDataTest()
         testButtonAnimation()
