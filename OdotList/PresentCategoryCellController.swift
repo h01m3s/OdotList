@@ -16,9 +16,10 @@ class PresentCategoryCellController: NSObject, UIViewControllerAnimatedTransitio
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         // Animation
+        
+        // init
+        
+        // final
     }
-    
-    
-    
     
 }
