@@ -13,13 +13,17 @@
 		DB3C4D972092967400B9296E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB3C4D952092967400B9296E /* Main.storyboard */; };
 		DB3C4D992092967600B9296E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB3C4D982092967600B9296E /* Assets.xcassets */; };
 		DB3C4D9C2092967600B9296E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB3C4D9A2092967600B9296E /* LaunchScreen.storyboard */; };
-		DB449428209BC8F500BC2237 /* DummyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB449427209BC8F500BC2237 /* DummyController.swift */; };
 		DB44942A209BC98C00BC2237 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB449429209BC98C00BC2237 /* CategoryCell.swift */; };
 		DB44942C209F675B00BC2237 /* ToDoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB44942B209F675B00BC2237 /* ToDoItem.swift */; };
 		DB44942E20A0D8AD00BC2237 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB44942D20A0D8AD00BC2237 /* Date+Extensions.swift */; };
 		DB64501920B7BC1F00A7B1F8 /* PresentCategoryCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB64501820B7BC1F00A7B1F8 /* PresentCategoryCellController.swift */; };
 		DBAA52C720A3E9EB00089B2A /* GradientLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAA52C620A3E9EB00089B2A /* GradientLayer.swift */; };
 		DBAA52CB20A3F92900089B2A /* GradientProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAA52CA20A3F92900089B2A /* GradientProgressBar.swift */; };
+		DBB81EB720CDE67F00788432 /* ToDoItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB81EB620CDE67F00788432 /* ToDoItemCell.swift */; };
+		DBB81EC120CDEDD500788432 /* BEMAnimationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DBB81EBA20CDEDD500788432 /* BEMAnimationManager.m */; };
+		DBB81EC220CDEDD500788432 /* BEMPathManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DBB81EBB20CDEDD500788432 /* BEMPathManager.m */; };
+		DBB81EC320CDEDD500788432 /* BEMCheckBoxGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = DBB81EBC20CDEDD500788432 /* BEMCheckBoxGroup.m */; };
+		DBB81EC420CDEDD500788432 /* BEMCheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = DBB81EBE20CDEDD500788432 /* BEMCheckBox.m */; };
 		DBD7766720AE78B30091E76C /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD7766620AE78B30091E76C /* CategoryViewController.swift */; };
 		DBD7766920B3ABF40091E76C /* PresentCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD7766820B3ABF40091E76C /* PresentCategoryViewController.swift */; };
 		DBE1C89E20929C3200952F7A /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE1C89D20929C3200952F7A /* UIColor+Extensions.swift */; };
@@ -37,13 +41,22 @@
 		DB3C4D982092967600B9296E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DB3C4D9B2092967600B9296E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DB3C4D9D2092967600B9296E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DB449427209BC8F500BC2237 /* DummyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyController.swift; sourceTree = "<group>"; };
 		DB449429209BC98C00BC2237 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		DB44942B209F675B00BC2237 /* ToDoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoItem.swift; sourceTree = "<group>"; };
 		DB44942D20A0D8AD00BC2237 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		DB64501820B7BC1F00A7B1F8 /* PresentCategoryCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentCategoryCellController.swift; sourceTree = "<group>"; };
 		DBAA52C620A3E9EB00089B2A /* GradientLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientLayer.swift; sourceTree = "<group>"; };
 		DBAA52CA20A3F92900089B2A /* GradientProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientProgressBar.swift; sourceTree = "<group>"; };
+		DBB81EB620CDE67F00788432 /* ToDoItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoItemCell.swift; sourceTree = "<group>"; };
+		DBB81EB920CDEDD500788432 /* BEMCheckBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BEMCheckBox.h; sourceTree = "<group>"; };
+		DBB81EBA20CDEDD500788432 /* BEMAnimationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BEMAnimationManager.m; sourceTree = "<group>"; };
+		DBB81EBB20CDEDD500788432 /* BEMPathManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BEMPathManager.m; sourceTree = "<group>"; };
+		DBB81EBC20CDEDD500788432 /* BEMCheckBoxGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BEMCheckBoxGroup.m; sourceTree = "<group>"; };
+		DBB81EBD20CDEDD500788432 /* BEMAnimationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BEMAnimationManager.h; sourceTree = "<group>"; };
+		DBB81EBE20CDEDD500788432 /* BEMCheckBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BEMCheckBox.m; sourceTree = "<group>"; };
+		DBB81EBF20CDEDD500788432 /* BEMPathManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BEMPathManager.h; sourceTree = "<group>"; };
+		DBB81EC020CDEDD500788432 /* BEMCheckBoxGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BEMCheckBoxGroup.h; sourceTree = "<group>"; };
+		DBB81EC520CDEEE900788432 /* CheckBoxHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckBoxHeader.h; sourceTree = "<group>"; };
 		DBD7766620AE78B30091E76C /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		DBD7766820B3ABF40091E76C /* PresentCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentCategoryViewController.swift; sourceTree = "<group>"; };
 		DBE1C89D20929C3200952F7A /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
@@ -94,19 +107,35 @@
 				DB3C4D912092967400B9296E /* AppDelegate.swift */,
 				DB3C4D932092967400B9296E /* HomeViewController.swift */,
 				DBD7766620AE78B30091E76C /* CategoryViewController.swift */,
+				DBB81EB620CDE67F00788432 /* ToDoItemCell.swift */,
 				DBD7766820B3ABF40091E76C /* PresentCategoryViewController.swift */,
 				DB64501820B7BC1F00A7B1F8 /* PresentCategoryCellController.swift */,
 				DB449429209BC98C00BC2237 /* CategoryCell.swift */,
 				DBAA52C620A3E9EB00089B2A /* GradientLayer.swift */,
 				DBAA52CA20A3F92900089B2A /* GradientProgressBar.swift */,
 				DBE2F2DD20A7C012008CD6D6 /* Model */,
-				DB449427209BC8F500BC2237 /* DummyController.swift */,
 				DBE1C8A320943EE600952F7A /* Extensions */,
+				DBB81EB820CDEDD500788432 /* BEMCheckBox */,
 				DB23E15520A2449F00F54133 /* Storyboards */,
 				DB3C4D982092967600B9296E /* Assets.xcassets */,
 				DB3C4D9D2092967600B9296E /* Info.plist */,
 			);
 			path = OdotList;
+			sourceTree = "<group>";
+		};
+		DBB81EB820CDEDD500788432 /* BEMCheckBox */ = {
+			isa = PBXGroup;
+			children = (
+				DBB81EB920CDEDD500788432 /* BEMCheckBox.h */,
+				DBB81EBA20CDEDD500788432 /* BEMAnimationManager.m */,
+				DBB81EBB20CDEDD500788432 /* BEMPathManager.m */,
+				DBB81EBC20CDEDD500788432 /* BEMCheckBoxGroup.m */,
+				DBB81EBD20CDEDD500788432 /* BEMAnimationManager.h */,
+				DBB81EBE20CDEDD500788432 /* BEMCheckBox.m */,
+				DBB81EBF20CDEDD500788432 /* BEMPathManager.h */,
+				DBB81EC020CDEDD500788432 /* BEMCheckBoxGroup.h */,
+			);
+			path = BEMCheckBox;
 			sourceTree = "<group>";
 		};
 		DBE1C8A320943EE600952F7A /* Extensions */ = {
@@ -116,6 +145,7 @@
 				DB44942D20A0D8AD00BC2237 /* Date+Extensions.swift */,
 				DBE1C8A120943ED800952F7A /* UIView+Extensions.swift */,
 				DB0B182220A9FB6100A20592 /* Notification+Helper.swift */,
+				DBB81EC520CDEEE900788432 /* CheckBoxHeader.h */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -203,20 +233,24 @@
 			files = (
 				DBAA52CB20A3F92900089B2A /* GradientProgressBar.swift in Sources */,
 				DBE2F2DC20A7C009008CD6D6 /* CategoryStore.swift in Sources */,
+				DBB81EC120CDEDD500788432 /* BEMAnimationManager.m in Sources */,
 				DBD7766720AE78B30091E76C /* CategoryViewController.swift in Sources */,
 				DB3C4D942092967400B9296E /* HomeViewController.swift in Sources */,
-				DB449428209BC8F500BC2237 /* DummyController.swift in Sources */,
 				DBF7A06F20A60D31004265DE /* ToDoCategory.swift in Sources */,
 				DBD7766920B3ABF40091E76C /* PresentCategoryViewController.swift in Sources */,
+				DBB81EC320CDEDD500788432 /* BEMCheckBoxGroup.m in Sources */,
 				DBAA52C720A3E9EB00089B2A /* GradientLayer.swift in Sources */,
 				DB44942E20A0D8AD00BC2237 /* Date+Extensions.swift in Sources */,
 				DB64501920B7BC1F00A7B1F8 /* PresentCategoryCellController.swift in Sources */,
 				DB44942A209BC98C00BC2237 /* CategoryCell.swift in Sources */,
 				DBE1C8A220943ED800952F7A /* UIView+Extensions.swift in Sources */,
 				DB0B182320A9FB6100A20592 /* Notification+Helper.swift in Sources */,
+				DBB81EC220CDEDD500788432 /* BEMPathManager.m in Sources */,
+				DBB81EB720CDE67F00788432 /* ToDoItemCell.swift in Sources */,
 				DBE1C89E20929C3200952F7A /* UIColor+Extensions.swift in Sources */,
 				DB44942C209F675B00BC2237 /* ToDoItem.swift in Sources */,
 				DB3C4D922092967400B9296E /* AppDelegate.swift in Sources */,
+				DBB81EC420CDEDD500788432 /* BEMCheckBox.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -369,6 +403,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = me.weijielin.OdotList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = OdotList/Extensions/CheckBoxHeader.h;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -387,6 +422,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = me.weijielin.OdotList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = OdotList/Extensions/CheckBoxHeader.h;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

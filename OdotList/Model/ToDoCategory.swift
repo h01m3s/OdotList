@@ -14,13 +14,26 @@ struct ToDoCategory {
     var categoryIcon: UIImage
     var categoryGradientColors: [UIColor]
     var categoryItems: [ToDoItem]
+    let id = UUID()
+    var completedPercentage: Double {
+        get {
+            let completedTasks = categoryItems.filter { $0.isComplete == true }
+            let percentage = Double(completedTasks.count) / Double(categoryItems.count)
+            return percentage
+        }
+    }
     
+    mutating func edit(original: ToDoItem, new: ToDoItem) {
+        guard let index = categoryItems.index(of: original) else { return }
+        categoryItems[index] = new
+    }
+
 }
 
 extension ToDoCategory: Hashable {
     
     var hashValue: Int {
-        return categoryName.hashValue
+        return id.hashValue
     }
     
 }
@@ -28,7 +41,7 @@ extension ToDoCategory: Hashable {
 extension ToDoCategory: Equatable {
     
     public static func == (lhs: ToDoCategory, rhs: ToDoCategory) -> Bool {
-        return lhs.hashValue == rhs.hashValue
+        return lhs.id == rhs.id
     }
     
 }

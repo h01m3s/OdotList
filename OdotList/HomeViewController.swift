@@ -25,7 +25,6 @@ class HomeViewController: UIViewController {
         return button
     }()
     
-    let cellId = "cellId"
     fileprivate lazy var collectionViewHeight = view.frame.height / 2
     var previousCenteredCell: UICollectionViewCell?
     
@@ -33,7 +32,7 @@ class HomeViewController: UIViewController {
     let buttonGradientLayer = GradientLayer(gradientDirection: GradientLayer.GradientDirection.leftRight)
 
     
-    let categoryCollectionView: UICollectionView = {
+    lazy var categoryCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 15
@@ -41,6 +40,9 @@ class HomeViewController: UIViewController {
         collectionView.backgroundColor = .clear
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(CategoryCell.self, forCellWithReuseIdentifier: CategoryCell.identifier)
         return collectionView
     }()
     
@@ -99,18 +101,29 @@ class HomeViewController: UIViewController {
         fadeInViewAnimation()
         
         dummyDataTest()
-        testButtonAnimation()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         setupNavBar()
+        setNeedsStatusBarAppearanceUpdate()
+        categoryCollectionView.reloadData()
     }
     
     var todoCategories: [ToDoCategory] = []
     func dummyDataTest() {
-        todoCategories = [ToDoCategory(categoryName: "Personal", categoryIcon: #imageLiteral(resourceName: "person"), categoryGradientColors: UIColor.orangeGradient, categoryItems: []),
-                        ToDoCategory(categoryName: "Work", categoryIcon: #imageLiteral(resourceName: "work_icon"), categoryGradientColors: UIColor.blueGradient, categoryItems: [])
+        let items = [
+            ToDoItem(title: "Item 1", note: "Note 1"),
+            ToDoItem(title: "Item 2", note: "Note 2"),
+            ToDoItem(title: "Item 3", note: "Note 3"),
+            ToDoItem(title: "Item 4", note: "Note 4"),
+            ToDoItem(title: "Item 5", note: "Note 5"),
+        ]
+        
+        todoCategories = [
+            ToDoCategory(categoryName: "Personal", categoryIcon: #imageLiteral(resourceName: "person"), categoryGradientColors: UIColor.orangeGradient, categoryItems: items),
+            ToDoCategory(categoryName: "Work", categoryIcon: #imageLiteral(resourceName: "work_icon"), categoryGradientColors: UIColor.blueGradient, categoryItems: items)
                         ]
+        CategoryStore.shared.append(newCategories: todoCategories)
     }
     
     fileprivate func fadeInViewAnimation() {
@@ -135,18 +148,12 @@ class HomeViewController: UIViewController {
     }
     
     @objc func testButtonAnimation() {
-        print("test button pressed")
 //        UIView.animate(withDuration: 1.0) {
 //            self.button.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50)
 //            self.button.layer.cornerRadius = 0
 //            self.button.center = self.view.center
 //            self.buttonGradientLayer.frame = self.button.bounds
 //        }
-        UIView.animate(withDuration: 5) {
-            for cell in self.categoryCollectionView.visibleCells as! [CategoryCell] {
-                cell.progress = drand48()
-            }
-        }
     }
     
     fileprivate func setupViewGradient() {
@@ -205,15 +212,11 @@ class HomeViewController: UIViewController {
     
     // MARK: Setup CategoryCollectionView
     fileprivate func setupCategoryCollectionView() {
-        categoryCollectionView.dataSource = self
-        categoryCollectionView.delegate = self
-        categoryCollectionView.register(CategoryCell.self, forCellWithReuseIdentifier: cellId)
-        
         view.addSubview(categoryCollectionView)
         categoryCollectionView.anchor(nil, left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 10, rightConstant: 0, widthConstant: 0, heightConstant: collectionViewHeight + 20)
     }
     
-    @objc func handleTap() {
+    @objc func handleLayerChange() {
         let colorChangeAnimation = CABasicAnimation(keyPath: "colors")
         colorChangeAnimation.duration = 0.5
         if first == true {
@@ -251,13 +254,12 @@ extension HomeViewController: CAAnimationDelegate {
 extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return 5
-        return todoCategories.count
+        return CategoryStore.shared.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! CategoryCell
-        cell.todoCategory = todoCategories[indexPath.item]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCell.identifier, for: indexPath) as! CategoryCell
+        cell.todoCategory = CategoryStore.shared.item(at: indexPath.item)
         return cell
     }
     
@@ -274,8 +276,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        navigationItem.title = ""
-        let selectedCategory = todoCategories[indexPath.item]
+        let selectedCategory = CategoryStore.shared.item(at: indexPath.item)
         let categoryViewController = CategoryViewController()
         categoryViewController.todoCategory = selectedCategory
         navigationController?.pushViewController(categoryViewController, animated: true)
@@ -300,8 +301,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
 
         if (previousCenteredCell == nil || previousCenteredCell != closestCell){
             previousCenteredCell = closestCell
-            handleTap()
-            testButtonAnimation()
+            handleLayerChange()
         }
         
         categoryCollectionView.scrollToItem(at: indexPath!, at: .centeredHorizontally, animated: true)

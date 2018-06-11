@@ -78,5 +78,17 @@ class CategoryStore {
         return categories[index]
     }
     
+    func itemCount(category: ToDoCategory) -> Int {
+        guard let index = categories.index(of: category) else {
+            print("error get item count")
+            return  0
+        }
+        return categories[index].categoryItems.count
+    }
+    
+    func categoryItems(category: ToDoCategory) -> [ToDoItem] {
+        guard let index = categories.index(of: category) else { return [] }
+        return categories[index].categoryItems
+    }
     
 }
