@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class CategoryViewController: UIViewController {
     
     let categoryImageView: UIImageView = {
@@ -64,11 +65,24 @@ class CategoryViewController: UIViewController {
             categoryImageView.layer.borderColor = category.categoryGradientColors.first?.cgColor
             categoryTitleLabel.text = category.categoryName
             gradientProgressBar.gradientColors = category.categoryGradientColors.map { $0.cgColor }
-            progress = drand48()
+            tasksLabel.text = "\(category.categoryItems.count) Tasks"
+            progress = category.completedPercentage
         }
     }
     
-    let tasksTableView = UITableView()
+    lazy var tasksTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(ToDoItemCell.self, forCellReuseIdentifier: ToDoItemCell.identifier)
+        tableView.rowHeight = 45
+        tableView.tableFooterView = UIView()
+        return tableView
+    }()
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .default
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,6 +91,7 @@ class CategoryViewController: UIViewController {
         
         setupNavBar()
         setupSubViews()
+        setNeedsStatusBarAppearanceUpdate()
     }
     
     fileprivate func setupNavBar() {
@@ -84,6 +99,7 @@ class CategoryViewController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "back"), style: .plain, target: self, action: #selector(backButtonTapped))
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "more"), style: .plain, target: self, action: nil)
         navigationController?.navigationBar.tintColor = UIColor(hexString: "bfbfbf")
+        navigationController?.navigationBar.barStyle = .default
     }
     
     fileprivate func setupSubViews() {
@@ -115,14 +131,28 @@ class CategoryViewController: UIViewController {
 
 }
 
-//extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
-//
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return 10
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        <#code#>
-//    }
-//
-//}
+extension CategoryViewController: UITableViewDelegate, UITableViewDataSource, ToDoItemCellDelegate {
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return CategoryStore.shared.itemCount(category: todoCategory!)
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let items = CategoryStore.shared.categoryItems(category: todoCategory!)
+        let cell = tableView.dequeueReusableCell(withIdentifier: ToDoItemCell.identifier, for: indexPath) as! ToDoItemCell
+        cell.delegate = self
+        cell.cellItem = items[indexPath.row]
+//        cell.cellItem = todoCategory?.categoryItems[indexPath.row]
+        return cell
+    }
+    
+    func didTapCheckBox(cellItem: ToDoItem) {
+        var newItem = cellItem
+        newItem.isComplete = !cellItem.isComplete
+        let oldCategory = todoCategory!
+        todoCategory?.edit(original: cellItem, new: newItem)
+        CategoryStore.shared.edit(original: oldCategory, new: todoCategory!)
+        tasksTableView.reloadData()
+    }
+
+}

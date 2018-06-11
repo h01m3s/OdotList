@@ -10,6 +10,8 @@ import UIKit
 
 class CategoryCell: UICollectionViewCell {
     
+    static let identifier = String(describing: CategoryCell.self)
+    
     private let categoryImageView: UIImageView = {
         let imageView = UIImageView(image: #imageLiteral(resourceName: "person").withRenderingMode(.alwaysTemplate))
         imageView.contentMode = .center
@@ -63,6 +65,8 @@ class CategoryCell: UICollectionViewCell {
             categoryImageView.layer.borderColor = category.categoryGradientColors.first?.cgColor
             categoryTitleLabel.text = category.categoryName
             gradientProgressBar.gradientColors = category.categoryGradientColors.map { $0.cgColor }
+            tasksLabel.text = "\(category.categoryItems.count) Tasks"
+            progress = category.completedPercentage
         }
     }
     
