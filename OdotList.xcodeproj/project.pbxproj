@@ -16,7 +16,6 @@
 		DB44942A209BC98C00BC2237 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB449429209BC98C00BC2237 /* CategoryCell.swift */; };
 		DB44942C209F675B00BC2237 /* ToDoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB44942B209F675B00BC2237 /* ToDoItem.swift */; };
 		DB44942E20A0D8AD00BC2237 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB44942D20A0D8AD00BC2237 /* Date+Extensions.swift */; };
-		DB64501920B7BC1F00A7B1F8 /* PresentCategoryCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB64501820B7BC1F00A7B1F8 /* PresentCategoryCellController.swift */; };
 		DBAA52C720A3E9EB00089B2A /* GradientLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAA52C620A3E9EB00089B2A /* GradientLayer.swift */; };
 		DBAA52CB20A3F92900089B2A /* GradientProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAA52CA20A3F92900089B2A /* GradientProgressBar.swift */; };
 		DBB81EB720CDE67F00788432 /* ToDoItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB81EB620CDE67F00788432 /* ToDoItemCell.swift */; };
@@ -44,7 +43,6 @@
 		DB449429209BC98C00BC2237 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		DB44942B209F675B00BC2237 /* ToDoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoItem.swift; sourceTree = "<group>"; };
 		DB44942D20A0D8AD00BC2237 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
-		DB64501820B7BC1F00A7B1F8 /* PresentCategoryCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentCategoryCellController.swift; sourceTree = "<group>"; };
 		DBAA52C620A3E9EB00089B2A /* GradientLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientLayer.swift; sourceTree = "<group>"; };
 		DBAA52CA20A3F92900089B2A /* GradientProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientProgressBar.swift; sourceTree = "<group>"; };
 		DBB81EB620CDE67F00788432 /* ToDoItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoItemCell.swift; sourceTree = "<group>"; };
@@ -107,10 +105,9 @@
 				DB3C4D912092967400B9296E /* AppDelegate.swift */,
 				DB3C4D932092967400B9296E /* HomeViewController.swift */,
 				DBD7766620AE78B30091E76C /* CategoryViewController.swift */,
-				DBB81EB620CDE67F00788432 /* ToDoItemCell.swift */,
 				DBD7766820B3ABF40091E76C /* PresentCategoryViewController.swift */,
-				DB64501820B7BC1F00A7B1F8 /* PresentCategoryCellController.swift */,
 				DB449429209BC98C00BC2237 /* CategoryCell.swift */,
+				DBB81EB620CDE67F00788432 /* ToDoItemCell.swift */,
 				DBAA52C620A3E9EB00089B2A /* GradientLayer.swift */,
 				DBAA52CA20A3F92900089B2A /* GradientProgressBar.swift */,
 				DBE2F2DD20A7C012008CD6D6 /* Model */,
@@ -241,7 +238,6 @@
 				DBB81EC320CDEDD500788432 /* BEMCheckBoxGroup.m in Sources */,
 				DBAA52C720A3E9EB00089B2A /* GradientLayer.swift in Sources */,
 				DB44942E20A0D8AD00BC2237 /* Date+Extensions.swift in Sources */,
-				DB64501920B7BC1F00A7B1F8 /* PresentCategoryCellController.swift in Sources */,
 				DB44942A209BC98C00BC2237 /* CategoryCell.swift in Sources */,
 				DBE1C8A220943ED800952F7A /* UIView+Extensions.swift in Sources */,
 				DB0B182320A9FB6100A20592 /* Notification+Helper.swift in Sources */,

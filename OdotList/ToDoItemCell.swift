@@ -19,12 +19,16 @@ class ToDoItemCell: UITableViewCell {
     var cellItem: ToDoItem? {
         didSet {
             guard let item = cellItem else { return }
-            checkBox.on = item.isComplete
-            UIView.transition(with: todoTitle, duration: 0.5, options: [.transitionCrossDissolve], animations: {
+            checkBox.setOn(item.isComplete, animated: true)
+            UIView.transition(with: todoTitle, duration: 0.3, options: [.transitionCrossDissolve], animations: {
                 if item.isComplete {
                     self.todoTitle.attributedText = self.makeDeletedAttributedText(text: item.title)
+                    self.sideButton.isHidden = false
+                    self.sideButton.setImage(#imageLiteral(resourceName: "delete_icon"), for: .normal)
                 } else {
                     self.todoTitle.attributedText = NSMutableAttributedString(string: item.title, attributes: [NSAttributedStringKey.foregroundColor: UIColor.black])
+                    self.sideButton.isHidden = item.dueDate == nil ? true : false
+                    self.sideButton.setImage(#imageLiteral(resourceName: "remind_icon"), for: .normal)
                 }
             }, completion: nil)
         }
@@ -50,6 +54,14 @@ class ToDoItemCell: UITableViewCell {
         label.font = UIFont.systemFont(ofSize: 18)
         return label
     }()
+
+    let sideButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("", for: .normal)
+        button.setImage(#imageLiteral(resourceName: "remind_icon"), for: .normal)
+        button.tintColor = .lightGray
+        return button
+    }()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -73,6 +85,11 @@ class ToDoItemCell: UITableViewCell {
         addSubview(todoTitle)
         todoTitle.anchorCenterYToSuperview()
         todoTitle.leftAnchor.constraint(equalTo: checkBox.rightAnchor, constant: 8).isActive = true
+        
+        // Setup Side ImageView
+        addSubview(sideButton)
+        sideButton.anchorCenterYToSuperview()
+        sideButton.anchor(nil, left: nil, bottom: nil, right: rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 85, widthConstant: 20, heightConstant: 20)
     }
     
     private func makeDeletedAttributedText(text: String) -> NSMutableAttributedString {
