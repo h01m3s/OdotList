@@ -44,6 +44,24 @@ class CategoryViewController: UIViewController {
         return label
     }()
     
+    let buttonGradientLayer = GradientLayer(gradientDirection: GradientLayer.GradientDirection.leftRight)
+    lazy var addTaskButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        button.setTitle("+", for: .normal)
+        button.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 5, 0)
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 42, weight: .thin)
+        button.layer.cornerRadius = 25
+//        button.clipsToBounds = true
+        button.backgroundColor = .clear
+        button.layer.shadowOpacity = 0.3
+        button.layer.shadowRadius = 5
+        button.layer.shadowOffset = CGSize(width: 0, height: 10)
+        button.addTarget(self, action: #selector(handleNewTask), for: .touchUpInside)
+        return button
+    }()
+    
     private let gradientProgressBar = GradientProgressBar()
     
     private func animateGradientProgressBar(progress: Double) {
@@ -82,6 +100,12 @@ class CategoryViewController: UIViewController {
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .default
+    }
+    
+    @objc func handleNewTask() {
+        let newTaskViewController = NewTaskViewController()
+        navigationController?.pushViewController(newTaskViewController, animated: false)
+//        present(newTaskViewController, animated: true, completion: nil)
     }
 
     override func viewDidLoad() {
@@ -122,6 +146,17 @@ class CategoryViewController: UIViewController {
         view.addSubview(tasksTableView)
         tasksTableView.anchor(gradientProgressBar.bottomAnchor, left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, topConstant: 24, leftConstant: 55, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
         tasksTableView.separatorInset = .zero
+        
+        view.addSubview(addTaskButton)
+        addTaskButton.anchor(nil, left: nil, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.safeAreaLayoutGuide.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 100, rightConstant: 25, widthConstant: 50, heightConstant: 50)
+        buttonGradientLayer.colors = UIColor.blueGradient.map { $0.cgColor }
+        buttonGradientLayer.frame = addTaskButton.bounds
+        buttonGradientLayer.shadowOpacity = 0.05
+        buttonGradientLayer.shadowColor = UIColor(white: 1, alpha: 0.3).cgColor
+        buttonGradientLayer.shadowOffset = CGSize(width: 0, height: 5)
+        buttonGradientLayer.shadowRadius = 5
+        buttonGradientLayer.cornerRadius = 25
+        addTaskButton.layer.insertSublayer(buttonGradientLayer, at: 0)
     }
     
     
@@ -142,17 +177,70 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource, To
         let cell = tableView.dequeueReusableCell(withIdentifier: ToDoItemCell.identifier, for: indexPath) as! ToDoItemCell
         cell.delegate = self
         cell.cellItem = items[indexPath.row]
-//        cell.cellItem = todoCategory?.categoryItems[indexPath.row]
         return cell
     }
     
-    func didTapCheckBox(cellItem: ToDoItem) {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 30))
+        headerView.backgroundColor = .white
+        let sectionTitleLabel: UILabel = {
+            let label = UILabel()
+            label.text = ""
+            label.font = UIFont.systemFont(ofSize: 15)
+            label.textColor = .lightGray
+            label.translatesAutoresizingMaskIntoConstraints = false
+            return label
+        }()
+        headerView.addSubview(sectionTitleLabel)
+        sectionTitleLabel.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 0).isActive = true
+        
+        switch section {
+        case 0:
+            sectionTitleLabel.text = "Today"
+        case 1:
+            sectionTitleLabel.text = "Tomorrow"
+        default:
+            sectionTitleLabel.text = "Nothing to be done"
+        }
+        
+        return headerView
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
+    func didTapCheckBox(todoItemCell: ToDoItemCell) {
+        guard let cellItem = todoItemCell.cellItem else { return }
         var newItem = cellItem
         newItem.isComplete = !cellItem.isComplete
         let oldCategory = todoCategory!
         todoCategory?.edit(original: cellItem, new: newItem)
         CategoryStore.shared.edit(original: oldCategory, new: todoCategory!)
-        tasksTableView.reloadData()
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+            guard let indexPath = self.tasksTableView.indexPath(for: todoItemCell) else {
+                return
+            }
+            self.tasksTableView.reloadRows(at: [indexPath], with: .automatic)
+        }
     }
-
+    
+    func didTapSideButton(todoItemCell: ToDoItemCell, sideButtonActionType: SideButtonActionType) {
+        print(sideButtonActionType)
+//        guard let indexPath = tasksTableView.indexPath(for: todoItemCell) else { return }
+        guard let cellItem = todoItemCell.cellItem else { return }
+        switch sideButtonActionType {
+        case .Delete:
+            CategoryStore.shared.removeItemFromCategory(category: todoCategory!, item: cellItem)
+            todoCategory = CategoryStore.shared.updateCategory(category: todoCategory!)
+            // Error if two sections share same data and only delete one section
+//            tasksTableView.deleteRows(at: [indexPath], with: .automatic)
+            tasksTableView.reloadData()
+        case .Remind:
+            print("Remind Action Here...")
+        default:
+            print("No Action")
+        }
+    }
+    
 }
