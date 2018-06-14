@@ -11,6 +11,7 @@ import UIKit
 class HomeViewController: UIViewController {
     
     fileprivate var first = true
+    let presentCategoryViewController = PresentCategoryViewController()
     
     lazy var button: UIButton = {
         let button = UIButton(type: .system)
@@ -101,6 +102,8 @@ class HomeViewController: UIViewController {
         fadeInViewAnimation()
         
         dummyDataTest()
+        
+        navigationController?.delegate = self
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -114,9 +117,10 @@ class HomeViewController: UIViewController {
         let items = [
             ToDoItem(title: "Item 1", note: "Note 1"),
             ToDoItem(title: "Item 2", note: "Note 2"),
-            ToDoItem(title: "Item 3", note: "Note 3"),
+            ToDoItem(title: "Item 3", note: "Note 3", priority: .critical, dueDate: 3),
             ToDoItem(title: "Item 4", note: "Note 4"),
-            ToDoItem(title: "Item 5", note: "Note 5"),
+            ToDoItem(title: "Item 5", note: "Note 5", priority: .critical, dueDate: 5)
+            
         ]
         
         todoCategories = [
@@ -251,6 +255,8 @@ extension HomeViewController: CAAnimationDelegate {
 
 }
 
+
+
 extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -279,7 +285,13 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         let selectedCategory = CategoryStore.shared.item(at: indexPath.item)
         let categoryViewController = CategoryViewController()
         categoryViewController.todoCategory = selectedCategory
+        
+        let attributes = categoryCollectionView.layoutAttributesForItem(at: indexPath)!
+        let cellFrame = categoryCollectionView.convert(attributes.frame, to: view)
+        presentCategoryViewController.cellFrame = cellFrame
+        
         navigationController?.pushViewController(categoryViewController, animated: true)
+
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
@@ -316,6 +328,21 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     
 }
 
+extension HomeViewController: UINavigationControllerDelegate {
+    
+    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+
+        if operation == .push {
+            if toVC is CategoryViewController {
+                return presentCategoryViewController
+            }
+            return nil
+        }
+        
+        return nil
+    }
+    
+}
 
 
 

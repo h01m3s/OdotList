@@ -13,6 +13,8 @@ extension UIColor {
     
     static let orangeGradient = [UIColor(hexString: "F4736A"), UIColor(hexString: "F8A05A")]
     static let blueGradient = [UIColor(hexString: "7494DD"), UIColor(hexString: "79D0E2")]
+    
+    static let textColor = UIColor(hexString: "95a5a6")
 
 }
 
