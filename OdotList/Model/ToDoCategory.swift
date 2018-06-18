@@ -27,6 +27,11 @@ struct ToDoCategory {
         guard let index = categoryItems.index(of: original) else { return }
         categoryItems[index] = new
     }
+    
+    mutating func delete(item: ToDoItem) {
+        guard let index = categoryItems.index(of: item) else { return }
+        categoryItems.remove(at: index)
+    }
 
 }
 

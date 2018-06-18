@@ -91,4 +91,14 @@ class CategoryStore {
         return categories[index].categoryItems
     }
     
+    func removeItemFromCategory(category: ToDoCategory, item: ToDoItem) {
+        guard let index = categories.index(of: category) else { return }
+        categories[index].delete(item: item)
+    }
+    
+    func updateCategory(category: ToDoCategory) -> ToDoCategory {
+        guard let index = categories.index(of: category) else { fatalError("Unable to update category") }
+        return categories[index]
+    }
+    
 }
