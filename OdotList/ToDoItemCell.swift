@@ -9,12 +9,21 @@
 import UIKit
 
 protocol ToDoItemCellDelegate {
-    func didTapCheckBox(cellItem: ToDoItem)
+    func didTapCheckBox(todoItemCell: ToDoItemCell)
+    func didTapSideButton(todoItemCell: ToDoItemCell, sideButtonActionType: SideButtonActionType)
+}
+
+enum SideButtonActionType {
+    case Delete
+    case Remind
+    case None
 }
 
 class ToDoItemCell: UITableViewCell {
     
     static let identifier = String(describing: CategoryCell.self)
+    
+    private var sideButtonActionType: SideButtonActionType = .None
     
     var cellItem: ToDoItem? {
         didSet {
@@ -25,10 +34,12 @@ class ToDoItemCell: UITableViewCell {
                     self.todoTitle.attributedText = self.makeDeletedAttributedText(text: item.title)
                     self.sideButton.isHidden = false
                     self.sideButton.setImage(#imageLiteral(resourceName: "delete_icon"), for: .normal)
+                    self.sideButtonActionType = .Delete
                 } else {
                     self.todoTitle.attributedText = NSMutableAttributedString(string: item.title, attributes: [NSAttributedStringKey.foregroundColor: UIColor.black])
                     self.sideButton.isHidden = item.dueDate == nil ? true : false
                     self.sideButton.setImage(#imageLiteral(resourceName: "remind_icon"), for: .normal)
+                    self.sideButtonActionType = .Remind
                 }
             }, completion: nil)
         }
@@ -55,13 +66,18 @@ class ToDoItemCell: UITableViewCell {
         return label
     }()
 
-    let sideButton: UIButton = {
+    lazy var sideButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("", for: .normal)
         button.setImage(#imageLiteral(resourceName: "remind_icon"), for: .normal)
         button.tintColor = .lightGray
+        button.addTarget(self, action: #selector(didTapsideButton), for: .touchUpInside)
         return button
     }()
+    
+    @objc func didTapsideButton() {
+        delegate?.didTapSideButton(todoItemCell: self, sideButtonActionType: sideButtonActionType)
+    }
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -104,8 +120,7 @@ class ToDoItemCell: UITableViewCell {
 extension ToDoItemCell: BEMCheckBoxDelegate {
     
     func didTap(_ checkBox: BEMCheckBox) {
-        guard let item = cellItem else { return }
-        delegate?.didTapCheckBox(cellItem: item)
+        delegate?.didTapCheckBox(todoItemCell: self)
     }
     
 }
