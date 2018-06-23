@@ -82,7 +82,7 @@ class NewTaskViewController: UIViewController {
     }()
     
     @objc func handleAddNewTask() {
-        
+        guard let taskTitle = taskTextView.text, taskTitle.count > 0 else { return }
     }
     
     @objc func keyboardWillShow(_ notification: Notification) {
