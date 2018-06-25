@@ -32,6 +32,10 @@ struct ToDoCategory {
         guard let index = categoryItems.index(of: item) else { return }
         categoryItems.remove(at: index)
     }
+    
+    mutating func append(item: ToDoItem) {
+        categoryItems.append(item)
+    }
 
 }
 

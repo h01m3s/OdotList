@@ -10,6 +10,8 @@ import UIKit
 
 class NewTaskViewController: UIViewController {
     
+    var todoCategory: ToDoCategory?
+    
     var keyboardHeight: CGFloat = 0 {
         didSet {
             addTaskButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -keyboardHeight).isActive = true
@@ -82,7 +84,18 @@ class NewTaskViewController: UIViewController {
     }()
     
     @objc func handleAddNewTask() {
-        guard let taskTitle = taskTextView.text, taskTitle.count > 0 else { return }
+        guard let taskTitle = taskTextView.text, taskTitle.count > 0 else {
+            print("error get task title")
+            return
+        }
+        guard var newCategory = todoCategory else {
+            print("error get new category")
+            return
+        }
+        let newToDoItem = ToDoItem(title: taskTitle, note: "Notes")
+        newCategory.append(item: newToDoItem)
+        CategoryStore.shared.edit(original: todoCategory!, new: newCategory)
+        navigationController?.popViewController(animated: true)
     }
     
     @objc func keyboardWillShow(_ notification: Notification) {

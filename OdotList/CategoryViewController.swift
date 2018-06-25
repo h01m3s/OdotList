@@ -104,6 +104,7 @@ class CategoryViewController: UIViewController {
     
     @objc func handleNewTask() {
         let newTaskViewController = NewTaskViewController()
+        newTaskViewController.todoCategory = todoCategory!
         navigationController?.pushViewController(newTaskViewController, animated: false)
 //        present(newTaskViewController, animated: true, completion: nil)
     }
@@ -116,6 +117,12 @@ class CategoryViewController: UIViewController {
         setupNavBar()
         setupSubViews()
         setNeedsStatusBarAppearanceUpdate()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        todoCategory = CategoryStore.shared.updateCategory(category: todoCategory!)
+        tasksTableView.reloadData()
     }
     
     fileprivate func setupNavBar() {
