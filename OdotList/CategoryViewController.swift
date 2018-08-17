@@ -224,12 +224,12 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource, To
         let oldCategory = todoCategory!
         todoCategory?.edit(original: cellItem, new: newItem)
         CategoryStore.shared.edit(original: oldCategory, new: todoCategory!)
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
-            guard let indexPath = self.tasksTableView.indexPath(for: todoItemCell) else {
-                return
-            }
-            self.tasksTableView.reloadRows(at: [indexPath], with: .automatic)
-        }
+//        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+//            guard let indexPath = self.tasksTableView.indexPath(for: todoItemCell) else {
+//                return
+//            }
+//            self.tasksTableView.reloadRows(at: [indexPath], with: .automatic)
+//        }
     }
     
     func didTapSideButton(todoItemCell: ToDoItemCell, sideButtonActionType: SideButtonActionType) {

@@ -37,7 +37,7 @@ class ToDoItemCell: UITableViewCell {
                     self.sideButtonActionType = .Delete
                 } else {
                     self.todoTitle.attributedText = NSMutableAttributedString(string: item.title, attributes: [NSAttributedStringKey.foregroundColor: UIColor.black])
-                    self.sideButton.isHidden = item.dueDate == nil ? true : false
+//                    self.sideButton.isHidden = item.dueDate == nil ? true : false
                     self.sideButton.setImage(#imageLiteral(resourceName: "remind_icon"), for: .normal)
                     self.sideButtonActionType = .Remind
                 }

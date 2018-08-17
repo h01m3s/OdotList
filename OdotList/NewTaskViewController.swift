@@ -92,7 +92,7 @@ class NewTaskViewController: UIViewController {
             print("error get new category")
             return
         }
-        let newToDoItem = ToDoItem(title: taskTitle, note: "Notes")
+        let newToDoItem = ToDoItem(title: taskTitle)
         newCategory.append(item: newToDoItem)
         CategoryStore.shared.edit(original: todoCategory!, new: newCategory)
         navigationController?.popViewController(animated: true)

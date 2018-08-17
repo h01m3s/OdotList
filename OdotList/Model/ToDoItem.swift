@@ -20,20 +20,26 @@ struct ToDoItem {
     
     let id: ItemId
     var title: String
-    var note: String
-    var priority: ToDoPriority
+    var isComplete: Bool = false
     let creationDate: TimeInterval
-    var dueDate: TimeInterval?
-    var isComplete: Bool
+//    var note: String
+//    var priority: ToDoPriority
+//    var dueDate: TimeInterval?
     
-    init(title: String, note: String, priority: ToDoPriority = .normal, dueDate: TimeInterval? = nil) {
+//    init(title: String, note: String, priority: ToDoPriority = .normal, dueDate: TimeInterval? = nil) {
+//        self.id = ItemId()
+//        self.isComplete = false
+//        self.title = title
+//        self.creationDate = Date().timeIntervalSince1970
+//        self.note = note
+//        self.priority = priority
+//        self.dueDate = dueDate
+//    }
+    
+    init(title: String) {
         self.id = ItemId()
-        self.creationDate = Date().timeIntervalSince1970
-        self.isComplete = false
         self.title = title
-        self.note = note
-        self.priority = priority
-        self.dueDate = dueDate
+        self.creationDate = Date().timeIntervalSince1970
     }
     
 //    private enum CodingKeys: String, CodingKey {

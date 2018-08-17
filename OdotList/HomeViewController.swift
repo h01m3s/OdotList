@@ -113,19 +113,20 @@ class HomeViewController: UIViewController {
     }
     
     var todoCategories: [ToDoCategory] = []
+    
     func dummyDataTest() {
-        let items = [
-            ToDoItem(title: "Item 1", note: "Note 1"),
-            ToDoItem(title: "Item 2", note: "Note 2"),
-            ToDoItem(title: "Item 3", note: "Note 3", priority: .critical, dueDate: 3),
-            ToDoItem(title: "Item 4", note: "Note 4"),
-            ToDoItem(title: "Item 5", note: "Note 5", priority: .critical, dueDate: 5)
-            
+        let items: [ToDoItem] = [
+            .init(title: "Item 1"),
+            .init(title: "Item 2"),
+            .init(title: "Item 3"),
+            .init(title: "Item 4"),
+            .init(title: "Item 5"),
+            .init(title: "Item 6")
         ]
         
         todoCategories = [
-            ToDoCategory(categoryName: "Personal", categoryIcon: #imageLiteral(resourceName: "person"), categoryGradientColors: UIColor.orangeGradient, categoryItems: items),
-            ToDoCategory(categoryName: "Work", categoryIcon: #imageLiteral(resourceName: "work_icon"), categoryGradientColors: UIColor.blueGradient, categoryItems: items)
+            .init(categoryName: "Personal", categoryIcon: #imageLiteral(resourceName: "person"), categoryGradientColors: UIColor.orangeGradient, todoItems: items),
+            .init(categoryName: "Work", categoryIcon: #imageLiteral(resourceName: "work_icon"), categoryGradientColors: UIColor.blueGradient, todoItems: items)
                         ]
         CategoryStore.shared.append(newCategories: todoCategories)
     }
@@ -319,12 +320,10 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         categoryCollectionView.scrollToItem(at: indexPath!, at: .centeredHorizontally, animated: true)
     }
     
-//    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-//        // Maybe use this later with data model.
-//        let nextCell = velocity.x > 0 ? categoryCollectionView.visibleCells.last! : categoryCollectionView.visibleCells.first!
-//        let indexPath = categoryCollectionView.indexPath(for: nextCell)
-//        categoryCollectionView.scrollToItem(at: indexPath!, at: .centeredHorizontally, animated: true)
-//    }
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        // Stop scrollView sliding
+        targetContentOffset.pointee = scrollView.contentOffset
+    }
     
 }
 
