@@ -119,8 +119,9 @@ class ToDoItemCell: UITableViewCell {
 
 extension ToDoItemCell: BEMCheckBoxDelegate {
     
-//    func didTap(_ checkBox: BEMCheckBox) {
-//        delegate?.didTapCheckBox(todoItemCell: self)
-//    }
+    func didTap(_ checkBox: BEMCheckBox) {
+        print("tap from checkbox")
+        delegate?.didTapCheckBox(todoItemCell: self)
+    }
     
 }
