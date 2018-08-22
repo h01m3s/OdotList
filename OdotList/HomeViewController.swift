@@ -45,11 +45,11 @@ class HomeViewController: UIViewController {
 //    }
     
     fileprivate lazy var collectionViewHeight = view.frame.height / 2
-    var previousCenteredCell: UICollectionViewCell? = nil
+    lazy var previousCenteredCell: UICollectionViewCell? = nil
+    lazy var currentCenteredCell: UICollectionViewCell? = nil
     
     let viewGradientLayer = GradientLayer()
     let buttonGradientLayer = GradientLayer(gradientDirection: GradientLayer.GradientDirection.leftRight)
-
     
     lazy var categoryCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -277,7 +277,6 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         let horizontalInset = view.frame.width * 25/100 / 2
-        print(horizontalInset)
 //        return UIEdgeInsetsMake(0, 34, 15, 34)
         return UIEdgeInsetsMake(0, horizontalInset, 15, horizontalInset)
     }
@@ -328,6 +327,22 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         // Stop scrollView sliding
         targetContentOffset.pointee = scrollView.contentOffset
+    }
+    
+    fileprivate func getCenteredCell() -> UICollectionViewCell? {
+        
+        guard var closestCell = categoryCollectionView.visibleCells.first else {
+            return nil
+        }
+        
+        for cell in categoryCollectionView.visibleCells {
+            let closestCellDelta = abs(closestCell.center.x - categoryCollectionView.bounds.size.width / 2.0 - categoryCollectionView.contentOffset.x)
+            let cellDelta = abs(cell.center.x - categoryCollectionView.bounds.size.width / 2.0 - categoryCollectionView.contentOffset.x)
+            if cellDelta < closestCellDelta {
+                closestCell = cell
+            }
+        }
+        return closestCell
     }
     
 }
