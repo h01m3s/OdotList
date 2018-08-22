@@ -10,8 +10,28 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
-    fileprivate var first = true
     let presentCategoryViewController = PresentCategoryViewController()
+    let viewGradientLayer = GradientLayer()
+    lazy var collectionViewHeight = view.frame.height / 2
+    var previousCenteredCell: UICollectionViewCell? = nil
+    var currentCenteredCell: CategoryCell? {
+        get {
+            guard var closestCell = categoryCollectionView.visibleCells.first else {
+                return nil
+            }
+            
+            for cell in categoryCollectionView.visibleCells {
+                let closestCellDelta = abs(closestCell.center.x - categoryCollectionView.bounds.size.width / 2.0 - categoryCollectionView.contentOffset.x)
+                let cellDelta = abs(cell.center.x - categoryCollectionView.bounds.size.width / 2.0 - categoryCollectionView.contentOffset.x)
+                if cellDelta < closestCellDelta {
+                    closestCell = cell
+                }
+            }
+            return closestCell as? CategoryCell
+        }
+    }
+    
+//    let buttonGradientLayer = GradientLayer(gradientDirection: GradientLayer.GradientDirection.leftRight)
     
 //    lazy var button: UIButton = {
 //        let button = UIButton(type: .system)
@@ -43,13 +63,6 @@ class HomeViewController: UIViewController {
 //            self.buttonGradientLayer.frame = self.button.bounds
 //        }
 //    }
-    
-    fileprivate lazy var collectionViewHeight = view.frame.height / 2
-    lazy var previousCenteredCell: UICollectionViewCell? = nil
-    lazy var currentCenteredCell: UICollectionViewCell? = nil
-    
-    let viewGradientLayer = GradientLayer()
-    let buttonGradientLayer = GradientLayer(gradientDirection: GradientLayer.GradientDirection.leftRight)
     
     lazy var categoryCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -144,7 +157,8 @@ class HomeViewController: UIViewController {
         
         todoCategories = [
             .init(categoryName: "Personal", categoryIcon: #imageLiteral(resourceName: "person"), categoryGradientColors: UIColor.orangeGradient, todoItems: items),
-            .init(categoryName: "Work", categoryIcon: #imageLiteral(resourceName: "work_icon"), categoryGradientColors: UIColor.blueGradient, todoItems: items)
+            .init(categoryName: "Work", categoryIcon: #imageLiteral(resourceName: "work_icon"), categoryGradientColors: UIColor.blueGradient, todoItems: items),
+            .init(categoryName: "Personal", categoryIcon: #imageLiteral(resourceName: "person"), categoryGradientColors: UIColor.orangeGradient, todoItems: items)
                         ]
         CategoryStore.shared.append(newCategories: todoCategories)
     }
@@ -222,16 +236,10 @@ class HomeViewController: UIViewController {
     }
     
     @objc func handleLayerChange() {
+        print("handle layer change: \(currentCenteredCell?.todoCategory?.categoryName)")
         let colorChangeAnimation = CABasicAnimation(keyPath: "colors")
         colorChangeAnimation.duration = 0.5
-        if first == true {
-            colorChangeAnimation.toValue = UIColor.blueGradient.map { $0.cgColor }
-            first = false
-        } else {
-            colorChangeAnimation.toValue = UIColor.orangeGradient.map { $0.cgColor }
-            first = true
-        }
-        
+        colorChangeAnimation.toValue = currentCenteredCell?.todoCategory?.categoryGradientColors.map { $0.cgColor }
         colorChangeAnimation.fillMode = kCAFillModeForwards
         colorChangeAnimation.isRemovedOnCompletion = false
         colorChangeAnimation.delegate = self
@@ -244,11 +252,7 @@ extension HomeViewController: CAAnimationDelegate {
 
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         if flag {
-            if first == false {
-                viewGradientLayer.colors = UIColor.blueGradient.map { $0.cgColor }
-            } else {
-                viewGradientLayer.colors = UIColor.orangeGradient.map { $0.cgColor }
-            }
+            viewGradientLayer.colors = currentCenteredCell?.todoCategory?.categoryGradientColors.map { $0.cgColor }
             view.setNeedsLayout()
             print("layer Changed")
         }
@@ -296,28 +300,38 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         print("view did end dragging...")
-
-        guard var closestCell = categoryCollectionView.visibleCells.first else {
-            return
-        }
         
-        for cell in categoryCollectionView.visibleCells {
-            let closestCellDelta = abs(closestCell.center.x - categoryCollectionView.bounds.size.width / 2.0 - categoryCollectionView.contentOffset.x)
-            let cellDelta = abs(cell.center.x - categoryCollectionView.bounds.size.width / 2.0 - categoryCollectionView.contentOffset.x)
-            if cellDelta < closestCellDelta {
-                closestCell = cell
+//        guard var centeredCell = currentCenteredCell else { return }
+        
+        var centeredCell = currentCenteredCell
+        
+        if currentCenteredCell == nil {
+            guard var closestCell = categoryCollectionView.visibleCells.first else {
+                print("failed get first cell")
+                return
             }
+            
+            for cell in categoryCollectionView.visibleCells {
+                let closestCellDelta = abs(closestCell.center.x - categoryCollectionView.bounds.size.width / 2.0 - categoryCollectionView.contentOffset.x)
+                let cellDelta = abs(cell.center.x - categoryCollectionView.bounds.size.width / 2.0 - categoryCollectionView.contentOffset.x)
+                if cellDelta < closestCellDelta {
+                    closestCell = cell
+                }
+            }
+            centeredCell = (closestCell as? CategoryCell)!
+        } else {
+            centeredCell = currentCenteredCell
         }
         
         guard let previousCell = previousCenteredCell else {
-            previousCenteredCell = closestCell
+            previousCenteredCell = centeredCell
             return
         }
+        
+        let indexPath = categoryCollectionView.indexPath(for: centeredCell!)
 
-        let indexPath = categoryCollectionView.indexPath(for: closestCell)
-
-        if (previousCell != closestCell) {
-            previousCenteredCell = closestCell
+        if (previousCell != centeredCell) {
+            previousCenteredCell = centeredCell
             handleLayerChange()
         }
         
@@ -327,22 +341,6 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         // Stop scrollView sliding
         targetContentOffset.pointee = scrollView.contentOffset
-    }
-    
-    fileprivate func getCenteredCell() -> UICollectionViewCell? {
-        
-        guard var closestCell = categoryCollectionView.visibleCells.first else {
-            return nil
-        }
-        
-        for cell in categoryCollectionView.visibleCells {
-            let closestCellDelta = abs(closestCell.center.x - categoryCollectionView.bounds.size.width / 2.0 - categoryCollectionView.contentOffset.x)
-            let cellDelta = abs(cell.center.x - categoryCollectionView.bounds.size.width / 2.0 - categoryCollectionView.contentOffset.x)
-            if cellDelta < closestCellDelta {
-                closestCell = cell
-            }
-        }
-        return closestCell
     }
     
 }
