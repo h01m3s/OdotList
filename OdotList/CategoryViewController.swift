@@ -106,7 +106,6 @@ class CategoryViewController: UIViewController {
         let newTaskViewController = NewTaskViewController()
         newTaskViewController.todoCategory = todoCategory!
         navigationController?.pushViewController(newTaskViewController, animated: false)
-//        present(newTaskViewController, animated: true, completion: nil)
     }
 
     override func viewDidLoad() {
