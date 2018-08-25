@@ -30,39 +30,6 @@ class HomeViewController: UIViewController {
         }
     }
     
-//    let buttonGradientLayer = GradientLayer(gradientDirection: GradientLayer.GradientDirection.leftRight)
-    
-//    lazy var button: UIButton = {
-//        let button = UIButton(type: .system)
-//        button.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
-//        button.setTitle("+", for: .normal)
-//        button.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 5, 0)
-//        button.setTitleColor(.white, for: .normal)
-//        button.titleLabel?.font = UIFont.systemFont(ofSize: 42, weight: .thin)
-//        button.layer.cornerRadius = 25
-//        button.clipsToBounds = true
-//        button.backgroundColor = .clear
-//        return button
-//    }()
-    
-//    fileprivate func testButtonSetup() {
-//        button.addTarget(self, action: #selector(testButtonAnimation), for: .touchUpInside)
-//        view.addSubview(button)
-//        button.anchor(nil, left: nil, bottom: categoryCollectionView.topAnchor, right: view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 8, rightConstant: 16, widthConstant: 50, heightConstant: 50)
-//        buttonGradientLayer.colors = UIColor.blueGradient.map { $0.cgColor }
-//        buttonGradientLayer.frame = button.bounds
-//        button.layer.insertSublayer(buttonGradientLayer, at: 0)
-//    }
-//
-//    @objc func testButtonAnimation() {
-//        UIView.animate(withDuration: 1.0) {
-//            self.button.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50)
-//            self.button.layer.cornerRadius = 0
-//            self.button.center = self.view.center
-//            self.buttonGradientLayer.frame = self.button.bounds
-//        }
-//    }
-    
     lazy var categoryCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
