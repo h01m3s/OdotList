@@ -16,6 +16,7 @@
 		DB44942A209BC98C00BC2237 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB449429209BC98C00BC2237 /* CategoryCell.swift */; };
 		DB44942C209F675B00BC2237 /* ToDoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB44942B209F675B00BC2237 /* ToDoItem.swift */; };
 		DB44942E20A0D8AD00BC2237 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB44942D20A0D8AD00BC2237 /* Date+Extensions.swift */; };
+		DB866ACD2133A4B90099AA2E /* PresentBackToHomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB866ACC2133A4B90099AA2E /* PresentBackToHomeVC.swift */; };
 		DB9993F320D0BD8A003B644D /* NewTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9993F220D0BD8A003B644D /* NewTaskViewController.swift */; };
 		DBAA52C720A3E9EB00089B2A /* GradientLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAA52C620A3E9EB00089B2A /* GradientLayer.swift */; };
 		DBAA52CB20A3F92900089B2A /* GradientProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAA52CA20A3F92900089B2A /* GradientProgressBar.swift */; };
@@ -44,6 +45,7 @@
 		DB449429209BC98C00BC2237 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		DB44942B209F675B00BC2237 /* ToDoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoItem.swift; sourceTree = "<group>"; };
 		DB44942D20A0D8AD00BC2237 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
+		DB866ACC2133A4B90099AA2E /* PresentBackToHomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentBackToHomeVC.swift; sourceTree = "<group>"; };
 		DB9993F220D0BD8A003B644D /* NewTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskViewController.swift; sourceTree = "<group>"; };
 		DBAA52C620A3E9EB00089B2A /* GradientLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientLayer.swift; sourceTree = "<group>"; };
 		DBAA52CA20A3F92900089B2A /* GradientProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientProgressBar.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				DBD7766620AE78B30091E76C /* CategoryViewController.swift */,
 				DB9993F220D0BD8A003B644D /* NewTaskViewController.swift */,
 				DBD7766820B3ABF40091E76C /* PresentCategoryViewController.swift */,
+				DB866ACC2133A4B90099AA2E /* PresentBackToHomeVC.swift */,
 				DB449429209BC98C00BC2237 /* CategoryCell.swift */,
 				DBB81EB620CDE67F00788432 /* ToDoItemCell.swift */,
 				DBAA52C620A3E9EB00089B2A /* GradientLayer.swift */,
@@ -231,6 +234,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB866ACD2133A4B90099AA2E /* PresentBackToHomeVC.swift in Sources */,
 				DBAA52CB20A3F92900089B2A /* GradientProgressBar.swift in Sources */,
 				DBE2F2DC20A7C009008CD6D6 /* CategoryStore.swift in Sources */,
 				DBB81EC120CDEDD500788432 /* BEMAnimationManager.m in Sources */,
