@@ -16,7 +16,11 @@ class PresentBackToHomeVC: NSObject, UIViewControllerAnimatedTransitioning {
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         
-        // Animation
+        // MARK: Start
+        let destination = transitionContext.viewController(forKey: .to) as! HomeViewController
+        let containerView = transitionContext.containerView
+        
+        containerView.addSubview(destination.view)
         
         // Initial state
         
