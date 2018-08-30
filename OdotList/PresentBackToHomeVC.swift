@@ -10,6 +10,8 @@ import UIKit
 
 class PresentBackToHomeVC: NSObject, UIViewControllerAnimatedTransitioning {
     
+    var cellFrame: CGRect!
+    
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 0.6
     }
@@ -24,6 +26,17 @@ class PresentBackToHomeVC: NSObject, UIViewControllerAnimatedTransitioning {
         
         // Initial state
         
+        let translate = CATransform3DMakeTranslation(cellFrame.origin.x, cellFrame.origin.y, 0.0)
+        
+        destination.view.layer.transform = translate
+        destination.view.frame = cellFrame
+        
+        containerView.layoutIfNeeded()
+        
+        destination.view.layer.cornerRadius = 14
+        destination.view.layer.shadowOpacity = 0.3
+        destination.view.layer.shadowOffset = CGSize(width: 5, height: 8)
+        destination.view.layer.shadowRadius = 5
         
         // Final state
         
