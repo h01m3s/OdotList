@@ -43,7 +43,12 @@ class PresentBackToHomeVC: NSObject, UIViewControllerAnimatedTransitioning {
         let animator = UIViewPropertyAnimator(duration: 0.6, dampingRatio: 0.7) {
             
             // Final state
+            destination.view.layer.transform = CATransform3DIdentity
             
+            destination.view.frame = UIScreen.main.bounds
+            destination.view.layer.cornerRadius = 0
+            
+            containerView.layoutIfNeeded()
         }
         
         animator.addCompletion { (finished) in
