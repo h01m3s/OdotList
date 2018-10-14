@@ -92,6 +92,7 @@ class ToDoItemCell: UITableViewCell {
     
     private func setupSubViews() {
         
+        // Setup Sub Views
         // Setup CheckBox
         addSubview(checkBox)
         checkBox.anchorCenterYToSuperview()
