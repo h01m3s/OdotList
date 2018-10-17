@@ -49,7 +49,7 @@ class CategoryViewController: UIViewController {
         let button = UIButton(type: .system)
         button.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
         button.setTitle("+", for: .normal)
-        button.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 5, 0)
+        button.titleEdgeInsets = UIEdgeInsets.init(top: 0, left: 0, bottom: 5, right: 0)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 42, weight: .thin)
         button.layer.cornerRadius = 25

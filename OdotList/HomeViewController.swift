@@ -152,7 +152,7 @@ class HomeViewController: UIViewController {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.tintColor = .white
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(handleSearch))
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "hamberger_icon"), style: .plain, target: self, action: #selector(handleMore))
@@ -204,7 +204,7 @@ class HomeViewController: UIViewController {
         let colorChangeAnimation = CABasicAnimation(keyPath: "colors")
         colorChangeAnimation.duration = 0.5
         colorChangeAnimation.toValue = currentCenteredCell?.todoCategory?.categoryGradientColors.map { $0.cgColor }
-        colorChangeAnimation.fillMode = kCAFillModeForwards
+        colorChangeAnimation.fillMode = CAMediaTimingFillMode.forwards
         colorChangeAnimation.isRemovedOnCompletion = false
         colorChangeAnimation.delegate = self
         viewGradientLayer.add(colorChangeAnimation, forKey: "colorChange")
@@ -246,7 +246,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         let horizontalInset = view.frame.width * 25/100 / 2
 //        return UIEdgeInsetsMake(0, 34, 15, 34)
-        return UIEdgeInsetsMake(0, horizontalInset, 15, horizontalInset)
+        return UIEdgeInsets.init(top: 0, left: horizontalInset, bottom: 15, right: horizontalInset)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -284,7 +284,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
 
 extension HomeViewController: UINavigationControllerDelegate {
     
-    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
 
         if operation == .push {
             if toVC is CategoryViewController {

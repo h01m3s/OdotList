@@ -36,7 +36,7 @@ class ToDoItemCell: UITableViewCell {
                     self.sideButton.setImage(#imageLiteral(resourceName: "delete_icon"), for: .normal)
                     self.sideButtonActionType = .Delete
                 } else {
-                    self.todoTitle.attributedText = NSMutableAttributedString(string: item.title, attributes: [NSAttributedStringKey.foregroundColor: UIColor.black])
+                    self.todoTitle.attributedText = NSMutableAttributedString(string: item.title, attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
 //                    self.sideButton.isHidden = item.dueDate == nil ? true : false
                     self.sideButton.setImage(#imageLiteral(resourceName: "remind_icon"), for: .normal)
                     self.sideButtonActionType = .Remind
@@ -79,7 +79,7 @@ class ToDoItemCell: UITableViewCell {
         delegate?.didTapSideButton(todoItemCell: self, sideButtonActionType: sideButtonActionType)
     }
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         selectionStyle = .none
@@ -110,9 +110,9 @@ class ToDoItemCell: UITableViewCell {
     }
     
     private func makeDeletedAttributedText(text: String) -> NSMutableAttributedString {
-        let attributedText = NSMutableAttributedString(string: text, attributes: [NSAttributedStringKey.foregroundColor: UIColor.lightGray])
-        attributedText.addAttribute(NSAttributedStringKey.strikethroughStyle, value: NSUnderlineStyle.styleThick.rawValue, range: NSMakeRange(0, text.count))
-        attributedText.addAttribute(NSAttributedStringKey.strikethroughColor, value: UIColor.lightGray, range: NSMakeRange(0, text.count))
+        let attributedText = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
+        attributedText.addAttribute(NSAttributedString.Key.strikethroughStyle, value: NSUnderlineStyle.thick.rawValue, range: NSMakeRange(0, text.count))
+        attributedText.addAttribute(NSAttributedString.Key.strikethroughColor, value: UIColor.lightGray, range: NSMakeRange(0, text.count))
         return attributedText
     }
     

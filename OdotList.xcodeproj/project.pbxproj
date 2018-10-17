@@ -195,6 +195,7 @@
 				TargetAttributes = {
 					DB3C4D8D2092967300B9296E = {
 						CreatedOnToolsVersion = 9.3;
+						LastSwiftMigration = 1000;
 					};
 				};
 			};
@@ -409,7 +410,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = me.weijielin.OdotList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OdotList/Extensions/CheckBoxHeader.h;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -429,7 +430,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = me.weijielin.OdotList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = OdotList/Extensions/CheckBoxHeader.h;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

@@ -45,8 +45,8 @@ class NewTaskViewController: UIViewController {
         button.tintColor = UIColor.darkGray
         button.contentHorizontalAlignment = .left
         button.imageView?.contentMode = .scaleAspectFit
-        button.imageEdgeInsets = UIEdgeInsetsMake(6, -2, 6, 6)
-        button.titleEdgeInsets = UIEdgeInsetsMake(0, 6, 0, 0)
+        button.imageEdgeInsets = UIEdgeInsets.init(top: 6, left: -2, bottom: 6, right: 6)
+        button.titleEdgeInsets = UIEdgeInsets.init(top: 0, left: 6, bottom: 0, right: 0)
         return button
     }()
     
@@ -58,8 +58,8 @@ class NewTaskViewController: UIViewController {
         button.tintColor = UIColor.darkGray
         button.contentHorizontalAlignment = .left
         button.imageView?.contentMode = .scaleAspectFit
-        button.imageEdgeInsets = UIEdgeInsetsMake(6, -2, 6, 6)
-        button.titleEdgeInsets = UIEdgeInsetsMake(0, 6, 0, 0)
+        button.imageEdgeInsets = UIEdgeInsets.init(top: 6, left: -2, bottom: 6, right: 6)
+        button.titleEdgeInsets = UIEdgeInsets.init(top: 0, left: 6, bottom: 0, right: 0)
         return button
     }()
     
@@ -102,7 +102,7 @@ class NewTaskViewController: UIViewController {
         let button = UIButton(type: .system)
         button.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 50)
         button.setTitle("+", for: .normal)
-        button.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 5, 0)
+        button.titleEdgeInsets = UIEdgeInsets.init(top: 0, left: 0, bottom: 5, right: 0)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 42, weight: .thin)
 //        button.layer.cornerRadius = 25
@@ -132,7 +132,7 @@ class NewTaskViewController: UIViewController {
     }
     
     @objc func keyboardWillShow(_ notification: Notification) {
-        if let keyboardFrame: NSValue = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
             keyboardHeight = keyboardRectangle.height
         }
@@ -146,7 +146,7 @@ class NewTaskViewController: UIViewController {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(keyboardWillShow),
-            name: NSNotification.Name.UIKeyboardWillShow,
+            name: UIResponder.keyboardWillShowNotification,
             object: nil
         )
         
@@ -203,7 +203,7 @@ class NewTaskViewController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "close_icon"), style: .plain, target: self, action: #selector(closeButtonTapped))
         navigationController?.navigationBar.tintColor = UIColor(hexString: "bfbfbf")
         navigationItem.title = "New Task"
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.black]
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
         navigationController?.navigationBar.barStyle = .default
     }
     
