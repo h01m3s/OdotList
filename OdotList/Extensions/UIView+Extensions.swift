@@ -9,6 +9,14 @@
 import UIKit
 
 extension UIView {
+    
+    public func frameOfViewInWindowsCoordinateSystem() -> CGRect {
+        guard let superView = self.superview else {
+            return self.frame
+        }
+        return superView.convert(self.frame, to: nil)
+    }
+    
     public func addConstraintsWithFormat(_ format: String, views: UIView...) {
         
         var viewsDictionary = [String: UIView]()
