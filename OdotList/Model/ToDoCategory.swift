@@ -10,6 +10,8 @@ import UIKit
 
 struct ToDoCategory {
     
+    // TODO: Simplify This
+    
     typealias CategoryId = UUID
     
     var categoryName: String
