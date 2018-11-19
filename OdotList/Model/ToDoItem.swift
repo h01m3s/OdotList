@@ -10,11 +10,11 @@ import Foundation
 
 struct ToDoItem {
     
-    enum ToDoPriority {
-        case critical
-        case important
-        case normal
-    }
+//    enum ToDoPriority {
+//        case critical
+//        case important
+//        case normal
+//    }
     
     typealias ItemId = UUID
     
