@@ -14,9 +14,11 @@ class NewTaskViewController: UIViewController {
     
     var keyboardHeight: CGFloat = 0 {
         didSet {
-            addTaskButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -keyboardHeight).isActive = true
-            buttonGradientLayer.frame = addTaskButton.bounds
-            addTaskButton.layoutIfNeeded()
+//            UIView.animate(withDuration: 0.2) {
+//                self.addTaskButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -self.keyboardHeight).isActive = true
+//                self.buttonGradientLayer.frame = self.addTaskButton.bounds
+//                self.addTaskButton.layoutIfNeeded()
+//            }
         }
     }
     
@@ -135,6 +137,11 @@ class NewTaskViewController: UIViewController {
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
             keyboardHeight = keyboardRectangle.height
+            UIView.animate(withDuration: 0.2) {
+                self.addTaskButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -self.keyboardHeight).isActive = true
+                self.buttonGradientLayer.frame = self.addTaskButton.bounds
+                self.addTaskButton.layoutIfNeeded()
+            }
         }
     }
     
